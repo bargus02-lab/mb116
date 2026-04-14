@@ -130,12 +130,17 @@ function populateForm() {
   fieldMap.footerTagline.value = siteData.footer.tagline;
   fieldMap.galleryTitle.value = siteData.gallery.title;
   fieldMap.galleryText.value = siteData.gallery.text;
-  fieldMap.menuTitle.value = siteData.menuGallery.title;
-  fieldMap.menuText.value = siteData.menuGallery.text;
+  fieldMap.menuTitle.value = siteData.menu?.title || "";
+  fieldMap.menuText.value = siteData.menu?.text || "";
 
   favoritesEditor.innerHTML = siteData.favorites.map(favoriteTemplate).join("");
   galleryEditor.innerHTML = siteData.gallery.items.map((item, index) => assetTemplate(item, index, "gallery")).join("");
-  menuEditor.innerHTML = siteData.menuGallery.items.map((item, index) => assetTemplate(item, index, "menuGallery")).join("");
+  menuEditor.innerHTML = `
+    <div class="editor-item">
+      <p>The live menu now uses structured menu categories from <code>data/site-content.json</code>.</p>
+      <p>Use the title and intro fields above for this section. Menu item editing can be expanded in a later pass.</p>
+    </div>
+  `;
   document.getElementById("github-token-input").value = window.localStorage.getItem(GITHUB_TOKEN_KEY) || "";
 }
 
@@ -171,14 +176,16 @@ function updateDataFromForm() {
   siteData.footer.tagline = fieldMap.footerTagline.value.trim();
   siteData.gallery.title = fieldMap.galleryTitle.value.trim();
   siteData.gallery.text = fieldMap.galleryText.value.trim();
-  siteData.menuGallery.title = fieldMap.menuTitle.value.trim();
-  siteData.menuGallery.text = fieldMap.menuText.value.trim();
+  if (siteData.menu) {
+    siteData.menu.title = fieldMap.menuTitle.value.trim();
+    siteData.menu.text = fieldMap.menuText.value.trim();
+  }
 
   document.querySelectorAll(".editor-item").forEach((item) => {
     const index = Number(item.dataset.index);
     const group = item.dataset.group;
 
-    if (group === "gallery" || group === "menuGallery") {
+    if (group === "gallery") {
       const targetGroup = siteData[group].items;
       targetGroup[index] = {
         ...targetGroup[index],
@@ -466,7 +473,6 @@ async function publishToGitHub() {
 
     for (const [section, items] of [
       ["gallery", publishData.gallery.items],
-      ["menu", publishData.menuGallery.items],
     ]) {
       items.forEach((item, index) => {
         if (item.image.startsWith("data:")) {
@@ -500,15 +506,7 @@ function bindEvents() {
 
   favoritesEditor.addEventListener("input", updatePreview);
   galleryEditor.addEventListener("input", updatePreview);
-  menuEditor.addEventListener("input", updatePreview);
-
   galleryEditor.addEventListener("change", (event) => {
-    if (event.target.matches('[data-asset-field="file"]')) {
-      handleAssetFileInput(event.target);
-    }
-  });
-
-  menuEditor.addEventListener("change", (event) => {
     if (event.target.matches('[data-asset-field="file"]')) {
       handleAssetFileInput(event.target);
     }

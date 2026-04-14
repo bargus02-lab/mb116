@@ -2,7 +2,7 @@
   "meta": {
     "title": "Mill Bakery | Santa Ana Bakery and Breakfast Burritos",
     "description": "Mill Bakery in Santa Ana serves Mexican pastries, pan dulce, breakfast burritos, coffee, and fresh morning favorites.",
-    "favicon": "assets/logo-windmill.png"
+    "favicon": "assets/favicon.png"
   },
   "business": {
     "name": "Mill Bakery",
@@ -15,7 +15,7 @@
     "instagramUrl": "https://www.instagram.com/millbakery.oc/",
     "hoursDisplay": "Daily: 5:00 AM - 12:00 PM",
     "hoursNote": "Hours based on current public listings and may change.",
-    "logo": "assets/logo-windmill.png"
+    "logo": "assets/logo-windmill-transparent.png"
   },
   "hero": {
     "eyebrow": "Santa Ana bakery and breakfast stop",
@@ -27,7 +27,7 @@
       "Easy pickup on MacArthur"
     ],
     "badgeTitle": "Warm mornings start here",
-    "badgeText": "Inspired by the bakery card: cream background, bakery red, and a golden border feel with a simple local look."
+    "badgeText": "Fresh coffee, warm pastries, and a welcoming stop to start the day right."
   },
   "about": {
     "title": "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -87,24 +87,174 @@
       }
     ]
   },
-  "menuGallery": {
-    "title": "Upload menu snapshots or specialty boards",
-    "text": "This section is built for quick image updates whenever the menu changes.",
-    "items": [
+  "menu": {
+    "title": "Breakfast burritos, tortas, drinks, and more",
+    "text": "A quick look at Mill Bakery favorites from the breakfast menu.",
+    "categories": [
       {
-        "title": "Menu Board",
-        "text": "Add a photo of a printed menu or counter board.",
-        "image": ""
+        "title": "Breakfast Burritos",
+        "items": [
+          {
+            "title": "#0 Eggs, Beans & Cheese",
+            "description": "2 eggs, pinto beans, and jack cheese",
+            "price": "$8.95"
+          },
+          {
+            "title": "#1 Beans & Cheese",
+            "description": "Pinto beans and jack cheese",
+            "price": "$8.50"
+          },
+          {
+            "title": "#2 Eggs & Cheese",
+            "description": "2 eggs and jack cheese",
+            "price": "$8.95"
+          },
+          {
+            "title": "#3 Ham & Eggs",
+            "description": "Ham, eggs, pinto beans, and jack cheese",
+            "price": "$10.50"
+          },
+          {
+            "title": "#4 Chorizo & Eggs",
+            "description": "Chorizo, eggs, pinto beans, and jack cheese",
+            "price": "$10.50"
+          },
+          {
+            "title": "#5 Potatoes & Eggs",
+            "description": "Potatoes, eggs, and jack cheese",
+            "price": "$9.95"
+          },
+          {
+            "title": "#6 Mexican",
+            "description": "Eggs, sauteed tomatoes, onions, and jalapenos",
+            "price": "$9.95"
+          },
+          {
+            "title": "#7 Bacon & Eggs",
+            "description": "Bacon, eggs, pinto beans, and jack cheese",
+            "price": "$10.50"
+          },
+          {
+            "title": "#8 Sausage & Eggs",
+            "description": "Sausage, eggs, pinto beans, and jack cheese",
+            "price": "$10.50"
+          },
+          {
+            "title": "#9 Salchichas & Huevos",
+            "description": "Beef hot dog sausage, eggs, and jack cheese",
+            "price": "$10.50"
+          },
+          {
+            "title": "#10 Carne Asada",
+            "description": "Carne asada, pinto beans, onions, cilantro, and a side of hot salsa",
+            "price": "$12.95"
+          }
+        ],
+        "note": "Add avocado or cheese to carne asada for $1.50."
       },
       {
-        "title": "Breakfast Specials",
-        "text": "Use this for burrito specials, combo boards, or promos.",
-        "image": ""
+        "title": "Breakfast Tortas",
+        "price": "$10.50",
+        "description": "2 scrambled eggs, mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        "items": [
+          {
+            "title": "Ham"
+          },
+          {
+            "title": "Chorizo"
+          },
+          {
+            "title": "Potatoes"
+          },
+          {
+            "title": "Bacon"
+          },
+          {
+            "title": "Sausage"
+          },
+          {
+            "title": "Salchicha"
+          }
+        ],
+        "note": "Extras $1.50 each: avocado, queso fresco, or turkey ham."
       },
       {
-        "title": "Seasonal Items",
-        "text": "Swap in any limited-run pastries or featured drinks.",
-        "image": ""
+        "title": "Tortas",
+        "price": "$7.50",
+        "description": "French roll, butter croissant, or sandwich bread with mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        "note": "Extras $1.50 each: avocado, queso fresco, or turkey ham."
+      },
+      {
+        "title": "Quesadilla",
+        "price": "$7.50",
+        "description": "Large flour tortilla with Monterey cheese and hot salsa."
+      },
+      {
+        "title": "Licuados / Milkshakes",
+        "price": "$7.50",
+        "description": "Cold milk, fresh fruit, sugar, and cinnamon.",
+        "items": [
+          {
+            "title": "Banana"
+          },
+          {
+            "title": "Strawberry"
+          },
+          {
+            "title": "Mango"
+          },
+          {
+            "title": "Chocolate"
+          }
+        ],
+        "note": "Add almonds or walnuts for $1.50 each."
+      },
+      {
+        "title": "Smoothies",
+        "price": "$7.50",
+        "description": "Ice cubes, fresh fruit, and sugar.",
+        "items": [
+          {
+            "title": "Blueberry"
+          },
+          {
+            "title": "Mango"
+          },
+          {
+            "title": "Strawberry"
+          }
+        ]
+      },
+      {
+        "title": "Fresh Juices",
+        "items": [
+          {
+            "title": "Carrot Juice",
+            "price": "$7.50"
+          },
+          {
+            "title": "Orange Juice",
+            "price": "$7.50"
+          }
+        ]
+      },
+      {
+        "title": "Empanadas",
+        "price": "$4.95",
+        "items": [
+          {
+            "title": "Beef",
+            "description": "Ground beef, diced potatoes, and tomatoes"
+          },
+          {
+            "title": "Chicken",
+            "description": "Chicken breast with dark mole sauce"
+          },
+          {
+            "title": "Tuna",
+            "description": "Tuna, potatoes, onions, tomatoes, and jalapenos"
+          }
+        ]
       }
     ]
   }

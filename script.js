@@ -6,7 +6,7 @@ const defaultContent = {
     title: "Mill Bakery | Santa Ana Bakery and Breakfast Burritos",
     description:
       "Mill Bakery in Santa Ana serves Mexican pastries, pan dulce, breakfast burritos, coffee, and fresh morning favorites.",
-    favicon: "assets/logo-windmill.png",
+    favicon: "assets/favicon.png",
   },
   business: {
     name: "Mill Bakery",
@@ -20,7 +20,7 @@ const defaultContent = {
     instagramUrl: "https://www.instagram.com/millbakery.oc/",
     hoursDisplay: "Daily: 5:00 AM - 12:00 PM",
     hoursNote: "Hours based on current public listings and may change.",
-    logo: "assets/logo-windmill.png",
+    logo: "assets/logo-windmill-transparent.png",
   },
   hero: {
     eyebrow: "Santa Ana bakery and breakfast stop",
@@ -34,7 +34,7 @@ const defaultContent = {
     ],
     badgeTitle: "Warm mornings start here",
     badgeText:
-      "Inspired by the bakery card: cream background, bakery red, and a golden border feel with a simple local look.",
+      "Fresh coffee, warm pastries, and a welcoming stop to start the day right.",
   },
   about: {
     title: "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -95,24 +95,145 @@ const defaultContent = {
       },
     ],
   },
-  menuGallery: {
-    title: "Upload menu snapshots or specialty boards",
-    text: "This section is built for quick image updates whenever the menu changes.",
-    items: [
+  menu: {
+    title: "Breakfast burritos, tortas, drinks, and more",
+    text: "A quick look at Mill Bakery favorites from the breakfast menu.",
+    categories: [
       {
-        title: "Menu Board",
-        text: "Add a photo of a printed menu or counter board.",
-        image: "",
+        title: "Breakfast Burritos",
+        items: [
+          {
+            title: "#0 Eggs, Beans & Cheese",
+            description: "2 eggs, pinto beans, and jack cheese",
+            price: "$8.95",
+          },
+          {
+            title: "#1 Beans & Cheese",
+            description: "Pinto beans and jack cheese",
+            price: "$8.50",
+          },
+          {
+            title: "#2 Eggs & Cheese",
+            description: "2 eggs and jack cheese",
+            price: "$8.95",
+          },
+          {
+            title: "#3 Ham & Eggs",
+            description: "Ham, eggs, pinto beans, and jack cheese",
+            price: "$10.50",
+          },
+          {
+            title: "#4 Chorizo & Eggs",
+            description: "Chorizo, eggs, pinto beans, and jack cheese",
+            price: "$10.50",
+          },
+          {
+            title: "#5 Potatoes & Eggs",
+            description: "Potatoes, eggs, and jack cheese",
+            price: "$9.95",
+          },
+          {
+            title: "#6 Mexican",
+            description: "Eggs, sauteed tomatoes, onions, and jalapenos",
+            price: "$9.95",
+          },
+          {
+            title: "#7 Bacon & Eggs",
+            description: "Bacon, eggs, pinto beans, and jack cheese",
+            price: "$10.50",
+          },
+          {
+            title: "#8 Sausage & Eggs",
+            description: "Sausage, eggs, pinto beans, and jack cheese",
+            price: "$10.50",
+          },
+          {
+            title: "#9 Salchichas & Huevos",
+            description: "Beef hot dog sausage, eggs, and jack cheese",
+            price: "$10.50",
+          },
+          {
+            title: "#10 Carne Asada",
+            description:
+              "Carne asada, pinto beans, onions, cilantro, and a side of hot salsa",
+            price: "$12.95",
+          },
+        ],
+        note: "Add avocado or cheese to carne asada for $1.50.",
       },
       {
-        title: "Breakfast Specials",
-        text: "Use this for burrito specials, combo boards, or promos.",
-        image: "",
+        title: "Breakfast Tortas",
+        price: "$10.50",
+        description:
+          "2 scrambled eggs, mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        items: [
+          { title: "Ham" },
+          { title: "Chorizo" },
+          { title: "Potatoes" },
+          { title: "Bacon" },
+          { title: "Sausage" },
+          { title: "Salchicha" },
+        ],
+        note: "Extras $1.50 each: avocado, queso fresco, or turkey ham.",
       },
       {
-        title: "Seasonal Items",
-        text: "Swap in any limited-run pastries or featured drinks.",
-        image: "",
+        title: "Tortas",
+        price: "$7.50",
+        description:
+          "French roll, butter croissant, or sandwich bread with mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        note: "Extras $1.50 each: avocado, queso fresco, or turkey ham.",
+      },
+      {
+        title: "Quesadilla",
+        price: "$7.50",
+        description: "Large flour tortilla with Monterey cheese and hot salsa.",
+      },
+      {
+        title: "Licuados / Milkshakes",
+        price: "$7.50",
+        description: "Cold milk, fresh fruit, sugar, and cinnamon.",
+        items: [
+          { title: "Banana" },
+          { title: "Strawberry" },
+          { title: "Mango" },
+          { title: "Chocolate" },
+        ],
+        note: "Add almonds or walnuts for $1.50 each.",
+      },
+      {
+        title: "Smoothies",
+        price: "$7.50",
+        description: "Ice cubes, fresh fruit, and sugar.",
+        items: [
+          { title: "Blueberry" },
+          { title: "Mango" },
+          { title: "Strawberry" },
+        ],
+      },
+      {
+        title: "Fresh Juices",
+        items: [
+          { title: "Carrot Juice", price: "$7.50" },
+          { title: "Orange Juice", price: "$7.50" },
+        ],
+      },
+      {
+        title: "Empanadas",
+        price: "$4.95",
+        items: [
+          {
+            title: "Beef",
+            description: "Ground beef, diced potatoes, and tomatoes",
+          },
+          {
+            title: "Chicken",
+            description: "Chicken breast with dark mole sauce",
+          },
+          {
+            title: "Tuna",
+            description: "Tuna, potatoes, onions, tomatoes, and jalapenos",
+          },
+        ],
       },
     ],
   },
@@ -243,6 +364,68 @@ function renderImageCards(id, items) {
   }
 }
 
+function renderMenuCategories(categories) {
+  const grid = document.getElementById("menu-grid");
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
+
+  for (const category of categories) {
+    const article = document.createElement("article");
+    article.className = "menu-card";
+
+    const itemsHtml = Array.isArray(category.items) && category.items.length
+      ? `
+        <ul class="menu-list">
+          ${category.items
+            .map(
+              (item) => `
+                <li>
+                  <div class="menu-item-line">
+                    <strong>${item.title ?? ""}</strong>
+                    ${item.price ? `<span class="menu-item-price">${item.price}</span>` : ""}
+                  </div>
+                  ${item.description ? `<p class="menu-item-details">${item.description}</p>` : ""}
+                </li>
+              `
+            )
+            .join("")}
+        </ul>
+      `
+      : "";
+
+    article.innerHTML = `
+      <div class="menu-card-header">
+        <div>
+          <h3>${category.title}</h3>
+          ${category.description ? `<p class="menu-card-copy">${category.description}</p>` : ""}
+        </div>
+        ${category.price ? `<div class="menu-card-price">${category.price}</div>` : ""}
+      </div>
+      ${itemsHtml}
+      ${category.note ? `<p class="menu-note">${category.note}</p>` : ""}
+    `;
+
+    grid.appendChild(article);
+  }
+}
+
+function renderLogoAssets(logoSrc, faviconSrc) {
+  const logo = document.getElementById("brand-logo-image");
+  const favicon = document.querySelector('link[rel="icon"]');
+
+  if (logo) {
+    logo.src = logoSrc;
+  }
+
+  if (favicon) {
+    favicon.setAttribute("href", faviconSrc);
+  }
+}
+
 function applySiteContent(content) {
   document.title = content.meta.title;
 
@@ -251,15 +434,7 @@ function applySiteContent(content) {
     metaDescription.setAttribute("content", content.meta.description);
   }
 
-  const favicon = document.querySelector('link[rel="icon"]');
-  if (favicon) {
-    favicon.setAttribute("href", content.meta.favicon);
-  }
-
-  const logo = document.getElementById("brand-logo-image");
-  if (logo) {
-    logo.src = content.business.logo;
-  }
+  renderLogoAssets(content.business.logo, content.meta.favicon);
 
   setText("brand-name", content.business.name);
   setText("hero-eyebrow", content.hero.eyebrow);
@@ -285,9 +460,9 @@ function applySiteContent(content) {
   setText("gallery-title", content.gallery.title);
   setText("gallery-text", content.gallery.text);
   renderImageCards("gallery-grid", content.gallery.items);
-  setText("menu-title", content.menuGallery.title);
-  setText("menu-text", content.menuGallery.text);
-  renderImageCards("menu-grid", content.menuGallery.items);
+  setText("menu-title", content.menu.title);
+  setText("menu-text", content.menu.text);
+  renderMenuCategories(content.menu.categories);
 
   setText("visit-title", "Find the bakery, check hours, and stop by early");
   setText("address-line-1", content.business.addressLine1);

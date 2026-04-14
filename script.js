@@ -6,7 +6,7 @@ const defaultContent = {
     title: "Mill Bakery | Santa Ana Bakery and Breakfast Burritos",
     description:
       "Mill Bakery in Santa Ana serves Mexican pastries, pan dulce, breakfast burritos, coffee, and fresh morning favorites.",
-    favicon: "assets/logo-windmill.svg",
+    favicon: "assets/logo-windmill.png",
   },
   business: {
     name: "Mill Bakery",
@@ -20,7 +20,7 @@ const defaultContent = {
     instagramUrl: "https://www.instagram.com/millbakery.oc/",
     hoursDisplay: "Daily: 5:00 AM - 12:00 PM",
     hoursNote: "Hours based on current public listings and may change.",
-    logo: "assets/logo-windmill.svg",
+    logo: "assets/logo-windmill.png",
   },
   hero: {
     eyebrow: "Santa Ana bakery and breakfast stop",

@@ -1,5 +1,5 @@
 const yearElement = document.getElementById("year");
-const draftQueryEnabled = new URLSearchParams(window.location.search).get("preview") === "draft";
+let activeMenuCategory = "all";
 
 const defaultContent = {
   meta: {
@@ -97,7 +97,7 @@ const defaultContent = {
   },
   menu: {
     title: "Breakfast burritos, tortas, drinks, and more",
-    text: "A quick look at Mill Bakery favorites from the breakfast menu.",
+    text: "Browse the breakfast menu by category for burritos, tortas, juices, smoothies, and empanadas.",
     categories: [
       {
         title: "Breakfast Burritos",
@@ -172,7 +172,7 @@ const defaultContent = {
           { title: "Potatoes" },
           { title: "Bacon" },
           { title: "Sausage" },
-          { title: "Salchicha" },
+          { title: "Salchicha (beef hot dog)" },
         ],
         note: "Extras $1.50 each: avocado, queso fresco, or turkey ham.",
       },
@@ -366,14 +366,46 @@ function renderImageCards(id, items) {
 
 function renderMenuCategories(categories) {
   const grid = document.getElementById("menu-grid");
+  const tabs = document.getElementById("menu-tabs");
 
   if (!grid) {
     return;
   }
 
+  const categoryTitles = categories.map((category) => category.title);
+  if (activeMenuCategory !== "all" && !categoryTitles.includes(activeMenuCategory)) {
+    activeMenuCategory = "all";
+  }
+
+  if (tabs) {
+    const tabItems = [
+      { label: "All", value: "all" },
+      ...categories.map((category) => ({ label: category.title, value: category.title })),
+    ];
+
+    tabs.innerHTML = "";
+
+    for (const tab of tabItems) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `menu-tab${tab.value === activeMenuCategory ? " is-active" : ""}`;
+      button.textContent = tab.label;
+      button.addEventListener("click", () => {
+        activeMenuCategory = tab.value;
+        renderMenuCategories(categories);
+      });
+      tabs.appendChild(button);
+    }
+  }
+
+  const visibleCategories =
+    activeMenuCategory === "all"
+      ? categories
+      : categories.filter((category) => category.title === activeMenuCategory);
+
   grid.innerHTML = "";
 
-  for (const category of categories) {
+  for (const category of visibleCategories) {
     const article = document.createElement("article");
     article.className = "menu-card";
 
@@ -505,26 +537,7 @@ async function loadSiteContent() {
     data = defaultContent;
   }
 
-  if (draftQueryEnabled) {
-    try {
-      const draft = window.localStorage.getItem("mill-bakery-site-draft");
-
-      if (draft) {
-        data = deepMerge(data, JSON.parse(draft));
-      }
-    } catch (_error) {
-      // Ignore invalid local drafts.
-    }
-  }
-
   applySiteContent(data);
 }
-
-window.addEventListener("message", (event) => {
-  if (event.data?.type === "mill-bakery-preview-update" && event.data.payload) {
-    const merged = deepMerge(defaultContent, event.data.payload);
-    applySiteContent(merged);
-  }
-});
 
 loadSiteContent();

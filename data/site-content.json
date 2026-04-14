@@ -89,7 +89,7 @@
   },
   "menu": {
     "title": "Breakfast burritos, tortas, drinks, and more",
-    "text": "A quick look at Mill Bakery favorites from the breakfast menu.",
+    "text": "Browse the breakfast menu by category for burritos, tortas, juices, smoothies, and empanadas.",
     "categories": [
       {
         "title": "Breakfast Burritos",
@@ -173,7 +173,7 @@
             "title": "Sausage"
           },
           {
-            "title": "Salchicha"
+            "title": "Salchicha (beef hot dog)"
           }
         ],
         "note": "Extras $1.50 each: avocado, queso fresco, or turkey ham."

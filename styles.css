@@ -349,6 +349,43 @@ h3 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.menu-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin: 0 0 1.4rem;
+}
+
+.menu-tab {
+  appearance: none;
+  border: 1px solid rgba(116, 88, 76, 0.16);
+  background: rgba(255, 251, 244, 0.86);
+  color: var(--text);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 1rem;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
+}
+
+.menu-tab:hover,
+.menu-tab:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(182, 55, 46, 0.3);
+  color: var(--red);
+}
+
+.menu-tab.is-active {
+  background: linear-gradient(180deg, var(--red), var(--red-deep));
+  border-color: transparent;
+  color: #fff7ef;
+}
+
 .item-card,
 .info-card,
 .social-card,
@@ -445,6 +482,7 @@ h3 {
   border: 1px solid var(--line);
   box-shadow: var(--shadow);
   padding: 1.35rem;
+  align-self: start;
 }
 
 .menu-card-header {
@@ -612,6 +650,10 @@ h3 {
   }
 
   .image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .menu-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 

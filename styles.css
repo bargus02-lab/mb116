@@ -79,19 +79,15 @@ iframe {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3.7rem;
-  height: 4.2rem;
+  width: 3.45rem;
+  height: 3.45rem;
   flex: 0 0 auto;
-  overflow: hidden;
 }
 
 .brand-logo-image {
-  width: 9.25rem;
-  height: auto;
+  width: 100%;
+  height: 100%;
   display: block;
-  margin-left: -0.6rem;
-  margin-top: -1.1rem;
-  mix-blend-mode: multiply;
 }
 
 .nav-links {

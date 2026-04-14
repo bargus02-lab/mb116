@@ -1,0 +1,6 @@
+.DS_Store
+mill-bakery-card.png
+pastel-ai-spark-daily.html
+send_pastel_ai_spark.py
+__pycache__/
+dist/

@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "title": "Mill Bakery | Santa Ana Bakery and Breakfast Burritos",
+    "description": "Mill Bakery in Santa Ana serves Mexican pastries, pan dulce, breakfast burritos, coffee, and fresh morning favorites.",
+    "favicon": "assets/logo-windmill.svg"
+  },
+  "business": {
+    "name": "Mill Bakery",
+    "phoneDisplay": "(714) 540-7278",
+    "phoneLink": "+17145407278",
+    "addressLine1": "116 W MacArthur Blvd",
+    "addressLine2": "Santa Ana, CA 92707",
+    "directionsUrl": "https://maps.google.com/?q=116+W+MacArthur+Blvd+Santa+Ana+CA+92707",
+    "mapEmbedUrl": "https://www.google.com/maps?q=116+W+MacArthur+Blvd,+Santa+Ana,+CA+92707&z=15&output=embed",
+    "instagramUrl": "https://www.instagram.com/millbakery.oc/",
+    "hoursDisplay": "Daily: 5:00 AM - 12:00 PM",
+    "hoursNote": "Hours based on current public listings and may change.",
+    "logo": "assets/logo-windmill.svg"
+  },
+  "hero": {
+    "eyebrow": "Santa Ana bakery and breakfast stop",
+    "title": "Fresh pan dulce, breakfast burritos, and coffee every morning",
+    "text": "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites for busy mornings.",
+    "highlights": [
+      "Fresh pastries daily",
+      "Known for breakfast burritos",
+      "Easy pickup on MacArthur"
+    ],
+    "badgeTitle": "Warm mornings start here",
+    "badgeText": "Inspired by the bakery card: cream background, bakery red, and a golden border feel with a simple local look."
+  },
+  "about": {
+    "title": "A local Santa Ana spot for pastries, coffee, and breakfast",
+    "paragraphs": [
+      "Mill Bakery is a casual neighborhood bakery near MacArthur in Santa Ana, known for Mexican pastries, pan dulce, fresh coffee, and popular breakfast burritos.",
+      "It is the kind of place people stop into early, pick up something warm, and head back to work or home with a box of favorites."
+    ]
+  },
+  "favorites": [
+    {
+      "badge": "Sweet bread",
+      "title": "Conchas",
+      "text": "Soft, fluffy, and fresh for the morning pastry run or an afternoon treat."
+    },
+    {
+      "badge": "Bakery classic",
+      "title": "Pan dulce",
+      "text": "A colorful pastry case with classic Mexican bakery favorites and familiar daily staples."
+    },
+    {
+      "badge": "Local standout",
+      "title": "Breakfast burritos",
+      "text": "A go-to order for regulars looking for a filling breakfast that is quick, hot, and easy to grab."
+    },
+    {
+      "badge": "Morning essential",
+      "title": "Coffee",
+      "text": "Hot coffee that pairs naturally with pan dulce and a quick stop before the day starts."
+    }
+  ],
+  "social": {
+    "title": "Follow along for fresh bakes and daily bakery updates",
+    "text": "See what is coming out of the pastry case, keep up with breakfast favorites, and follow the bakery on Instagram.",
+    "buttonText": "Follow @millbakery.oc"
+  },
+  "footer": {
+    "tagline": "Mexican pastries, breakfast burritos, coffee, and pan dulce."
+  }
+}

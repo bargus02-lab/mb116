@@ -14,7 +14,7 @@
       href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Work+Sans:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="logo-windmill.svg" type="image/svg+xml" />
+    <link rel="icon" href="assets/logo-windmill.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -23,20 +23,22 @@
         <a class="brand" href="#top">
           <span class="brand-mark" aria-hidden="true">
             <img
+              id="brand-logo-image"
               class="brand-logo-image"
-              src="logo-windmill.svg"
+              src="assets/logo-windmill.svg"
               alt=""
               width="256"
               height="256"
             />
           </span>
-          <span>Mill Bakery</span>
+          <span id="brand-name">Mill Bakery</span>
         </a>
         <nav class="nav-links" aria-label="Primary navigation">
           <a href="#about">About</a>
           <a href="#favorites">Favorites</a>
           <a href="#visit">Visit</a>
           <a href="#instagram">Instagram</a>
+          <a href="admin.html">Edit Site</a>
         </nav>
       </div>
     </header>
@@ -45,19 +47,18 @@
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-copy card-shell">
-            <p class="eyebrow">Santa Ana bakery and breakfast stop</p>
-            <h1>Fresh pan dulce, breakfast burritos, and coffee every morning</h1>
-            <p class="hero-text">
+            <p id="hero-eyebrow" class="eyebrow">Santa Ana bakery and breakfast stop</p>
+            <h1 id="hero-title">Fresh pan dulce, breakfast burritos, and coffee every morning</h1>
+            <p id="hero-text" class="hero-text">
               A neighborhood bakery on MacArthur serving Mexican pastries,
               conchas, burritos, coffee, and quick breakfast favorites for busy
               mornings.
             </p>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="tel:+17145407278"
-                >Call Now</a
-              >
+              <a id="call-now-link" class="button button-primary" href="tel:+17145407278">Call Now</a>
               <a
+                id="directions-link"
                 class="button button-secondary"
                 href="https://maps.google.com/?q=116+W+MacArthur+Blvd+Santa+Ana+CA+92707"
                 target="_blank"
@@ -66,7 +67,7 @@
               >
             </div>
 
-            <ul class="hero-highlights" aria-label="Bakery highlights">
+            <ul id="hero-highlights" class="hero-highlights" aria-label="Bakery highlights">
               <li>Fresh pastries daily</li>
               <li>Known for breakfast burritos</li>
               <li>Easy pickup on MacArthur</li>
@@ -75,24 +76,24 @@
 
           <aside class="hero-aside">
             <div class="hero-badge card-shell">
-              <p class="section-label">Mill Bakery</p>
-              <h2>Warm mornings start here</h2>
-              <p class="section-copy">
+              <p id="hero-badge-label" class="section-label">Mill Bakery</p>
+              <h2 id="hero-badge-title">Warm mornings start here</h2>
+              <p id="hero-badge-text" class="section-copy">
                 Inspired by the bakery card: cream background, bakery red, and a
                 golden border feel with a simple local look.
               </p>
               <div class="hero-stats">
                 <div>
                   <span class="stat-label">Address</span>
-                  <strong>116 W MacArthur Blvd</strong>
+                  <strong id="hero-stat-address">116 W MacArthur Blvd</strong>
                 </div>
                 <div>
                   <span class="stat-label">Phone</span>
-                  <strong>(714) 540-7278</strong>
+                  <strong id="hero-stat-phone">(714) 540-7278</strong>
                 </div>
                 <div>
                   <span class="stat-label">Hours</span>
-                  <strong>Daily 5:00 AM - 12:00 PM</strong>
+                  <strong id="hero-stat-hours">5:00 AM - 12:00 PM</strong>
                 </div>
               </div>
             </div>
@@ -104,15 +105,15 @@
         <div class="container split-section">
           <div>
             <p class="section-label">About</p>
-            <h2>A local Santa Ana spot for pastries, coffee, and breakfast</h2>
+            <h2 id="about-title">A local Santa Ana spot for pastries, coffee, and breakfast</h2>
           </div>
           <div class="copy-stack">
-            <p class="section-copy">
+            <p id="about-copy-1" class="section-copy">
               Mill Bakery is a casual neighborhood bakery near MacArthur in
               Santa Ana, known for Mexican pastries, pan dulce, fresh coffee,
               and popular breakfast burritos.
             </p>
-            <p class="section-copy">
+            <p id="about-copy-2" class="section-copy">
               It is the kind of place people stop into early, pick up something
               warm, and head back to work or home with a box of favorites.
             </p>
@@ -127,43 +128,7 @@
             <h2>What people usually come in for</h2>
           </div>
 
-          <div class="card-grid">
-            <article class="item-card">
-              <span class="item-badge">Sweet bread</span>
-              <h3>Conchas</h3>
-              <p>
-                Soft, fluffy, and fresh for the morning pastry run or an
-                afternoon treat.
-              </p>
-            </article>
-
-            <article class="item-card">
-              <span class="item-badge">Bakery classic</span>
-              <h3>Pan dulce</h3>
-              <p>
-                A colorful pastry case with classic Mexican bakery favorites and
-                familiar daily staples.
-              </p>
-            </article>
-
-            <article class="item-card">
-              <span class="item-badge">Local standout</span>
-              <h3>Breakfast burritos</h3>
-              <p>
-                A go-to order for regulars looking for a filling breakfast that
-                is quick, hot, and easy to grab.
-              </p>
-            </article>
-
-            <article class="item-card">
-              <span class="item-badge">Morning essential</span>
-              <h3>Coffee</h3>
-              <p>
-                Hot coffee that pairs naturally with pan dulce and a quick stop
-                before the day starts.
-              </p>
-            </article>
-          </div>
+          <div id="favorites-grid" class="card-grid"></div>
         </div>
       </section>
 
@@ -171,33 +136,32 @@
         <div class="container visit-grid">
           <div class="visit-copy">
             <p class="section-label">Visit Mill Bakery</p>
-            <h2>Find the bakery, check hours, and stop by early</h2>
+            <h2 id="visit-title">Find the bakery, check hours, and stop by early</h2>
 
             <div class="info-list">
               <div class="info-card">
                 <h3>Address</h3>
-                <p>116 W MacArthur Blvd</p>
-                <p>Santa Ana, CA 92707</p>
+                <p id="address-line-1">116 W MacArthur Blvd</p>
+                <p id="address-line-2">Santa Ana, CA 92707</p>
               </div>
 
               <div class="info-card">
                 <h3>Call</h3>
-                <p><a href="tel:+17145407278">(714) 540-7278</a></p>
-                <p>Tap to call for bakery questions or quick directions.</p>
+                <p><a id="phone-link" href="tel:+17145407278">(714) 540-7278</a></p>
+                <p id="phone-help-text">Tap to call for bakery questions or quick directions.</p>
               </div>
 
               <div class="info-card">
                 <h3>Hours</h3>
-                <p>Daily: 5:00 AM - 12:00 PM</p>
-                <p class="fine-print">
-                  Hours based on current public listings and may change.
-                </p>
+                <p id="hours-display">Daily: 5:00 AM - 12:00 PM</p>
+                <p id="hours-note" class="fine-print">Hours based on current public listings and may change.</p>
               </div>
             </div>
           </div>
 
           <div class="map-card card-shell">
             <iframe
+              id="map-frame"
               class="map-frame"
               title="Mill Bakery map"
               loading="lazy"
@@ -206,6 +170,7 @@
             ></iframe>
             <div class="map-actions">
               <a
+                id="open-maps-link"
                 class="button button-secondary"
                 href="https://maps.google.com/?q=116+W+MacArthur+Blvd+Santa+Ana+CA+92707"
                 target="_blank"
@@ -221,14 +186,15 @@
         <div class="container social-card card-shell">
           <div>
             <p class="section-label">Instagram</p>
-            <h2>Follow along for fresh bakes and daily bakery updates</h2>
-            <p class="section-copy">
+            <h2 id="instagram-title">Follow along for fresh bakes and daily bakery updates</h2>
+            <p id="instagram-text" class="section-copy">
               See what is coming out of the pastry case, keep up with breakfast
               favorites, and follow the bakery on Instagram.
             </p>
           </div>
           <div class="social-action">
             <a
+              id="instagram-link"
               class="button button-primary"
               href="https://www.instagram.com/millbakery.oc/"
               target="_blank"
@@ -243,12 +209,12 @@
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
-          <p class="footer-brand">Mill Bakery</p>
-          <p>Mexican pastries, breakfast burritos, coffee, and pan dulce.</p>
+          <p id="footer-brand" class="footer-brand">Mill Bakery</p>
+          <p id="footer-tagline">Mexican pastries, breakfast burritos, coffee, and pan dulce.</p>
         </div>
         <div>
-          <p><a href="tel:+17145407278">(714) 540-7278</a></p>
-          <p>116 W MacArthur Blvd, Santa Ana, CA 92707</p>
+          <p><a id="footer-phone" href="tel:+17145407278">(714) 540-7278</a></p>
+          <p id="footer-address">116 W MacArthur Blvd, Santa Ana, CA 92707</p>
         </div>
         <div>
           <p>&copy; <span id="year"></span> Mill Bakery. All rights reserved.</p>

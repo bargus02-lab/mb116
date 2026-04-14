@@ -33,7 +33,7 @@ textarea {
 }
 
 .admin-shell {
-  width: min(1400px, 100%);
+  width: min(1480px, 100%);
   margin: 0 auto;
 }
 
@@ -82,7 +82,8 @@ h2 {
 }
 
 .admin-actions,
-.cropper-actions {
+.cropper-actions,
+.publish-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
@@ -139,21 +140,32 @@ h2 {
   color: var(--text);
 }
 
-.editor-help {
+.editor-help,
+.publish-status {
   color: var(--muted);
   line-height: 1.6;
 }
 
-.favorite-editor-list {
+.editor-list {
   display: grid;
   gap: 1rem;
 }
 
-.favorite-editor-item {
+.editor-item {
   padding: 1rem;
   border: 1px solid rgba(88, 60, 45, 0.12);
   border-radius: 20px;
   background: rgba(255, 255, 255, 0.7);
+}
+
+.asset-editor img {
+  width: 100%;
+  margin-top: 0.9rem;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(88, 60, 45, 0.12);
+  background: rgba(228, 171, 36, 0.12);
 }
 
 .preview-panel {
@@ -170,7 +182,7 @@ h2 {
 
 #site-preview-frame {
   width: 100%;
-  min-height: 950px;
+  min-height: 1050px;
   border: 0;
   background: white;
 }
@@ -209,7 +221,7 @@ h2 {
 
 @media (min-width: 1080px) {
   .admin-main {
-    grid-template-columns: minmax(420px, 520px) minmax(0, 1fr);
+    grid-template-columns: minmax(460px, 560px) minmax(0, 1fr);
     align-items: start;
   }
 }

@@ -74,6 +74,48 @@ const defaultContent = {
   footer: {
     tagline: "Mexican pastries, breakfast burritos, coffee, and pan dulce.",
   },
+  gallery: {
+    title: "A quick look inside Mill Bakery",
+    text: "Fresh pastry trays, coffee, and the bakery counter all in one place.",
+    items: [
+      {
+        title: "Pastry Counter",
+        text: "Upload an interior or pastry-case photo here.",
+        image: "",
+      },
+      {
+        title: "Morning Coffee",
+        text: "Show coffee service, burritos, or a breakfast setup.",
+        image: "",
+      },
+      {
+        title: "Fresh Bakes",
+        text: "Use this slot for conchas, pan dulce, or daily specials.",
+        image: "",
+      },
+    ],
+  },
+  menuGallery: {
+    title: "Upload menu snapshots or specialty boards",
+    text: "This section is built for quick image updates whenever the menu changes.",
+    items: [
+      {
+        title: "Menu Board",
+        text: "Add a photo of a printed menu or counter board.",
+        image: "",
+      },
+      {
+        title: "Breakfast Specials",
+        text: "Use this for burrito specials, combo boards, or promos.",
+        image: "",
+      },
+      {
+        title: "Seasonal Items",
+        text: "Swap in any limited-run pastries or featured drinks.",
+        image: "",
+      },
+    ],
+  },
 };
 
 function deepMerge(base, override) {
@@ -164,6 +206,43 @@ function renderFavorites(items) {
   }
 }
 
+function renderImageCards(id, items) {
+  const grid = document.getElementById(id);
+
+  if (!grid) {
+    return;
+  }
+
+  grid.innerHTML = "";
+
+  for (const item of items) {
+    const figure = document.createElement("figure");
+    figure.className = "image-card";
+
+    if (!item.image) {
+      figure.classList.add("is-empty");
+    }
+
+    figure.innerHTML = `
+      <div class="image-placeholder">Photo Placeholder</div>
+      <img alt="" />
+      <figcaption>
+        <h3></h3>
+        <p></p>
+      </figcaption>
+    `;
+
+    const image = figure.querySelector("img");
+    image.src = item.image || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    image.alt = item.title;
+
+    figure.querySelector("h3").textContent = item.title;
+    figure.querySelector("p").textContent = item.text;
+
+    grid.appendChild(figure);
+  }
+}
+
 function applySiteContent(content) {
   document.title = content.meta.title;
 
@@ -203,6 +282,12 @@ function applySiteContent(content) {
   setText("about-copy-2", content.about.paragraphs[1]);
 
   renderFavorites(content.favorites);
+  setText("gallery-title", content.gallery.title);
+  setText("gallery-text", content.gallery.text);
+  renderImageCards("gallery-grid", content.gallery.items);
+  setText("menu-title", content.menuGallery.title);
+  setText("menu-text", content.menuGallery.text);
+  renderImageCards("menu-grid", content.menuGallery.items);
 
   setText("visit-title", "Find the bakery, check hours, and stop by early");
   setText("address-line-1", content.business.addressLine1);

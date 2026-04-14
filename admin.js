@@ -1,4 +1,5 @@
 const DRAFT_KEY = "mill-bakery-site-draft";
+const GITHUB_TOKEN_KEY = "mill-bakery-github-token";
 const defaultDataUrl = "data/site-content.json";
 
 let siteData = null;
@@ -38,15 +39,30 @@ const fieldMap = {
   instagramText: document.getElementById("instagram-text-input"),
   instagramButtonText: document.getElementById("instagram-button-text"),
   footerTagline: document.getElementById("footer-tagline-input"),
+  galleryTitle: document.getElementById("gallery-title-input"),
+  galleryText: document.getElementById("gallery-text-input"),
+  menuTitle: document.getElementById("menu-title-input"),
+  menuText: document.getElementById("menu-text-input"),
 };
 
 const favoritesEditor = document.getElementById("favorites-editor");
+const galleryEditor = document.getElementById("gallery-editor");
+const menuEditor = document.getElementById("menu-editor");
 const previewFrame = document.getElementById("site-preview-frame");
 const cropperCanvas = document.getElementById("cropper-canvas");
 const cropperContext = cropperCanvas.getContext("2d");
 const logoPreviewCanvas = document.getElementById("logo-preview-canvas");
 const logoPreviewContext = logoPreviewCanvas.getContext("2d");
 const zoomInput = document.getElementById("crop-zoom");
+const publishStatus = document.getElementById("publish-status");
+
+function escapeHtml(value) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
 
 async function loadBaseData() {
   const response = await fetch(defaultDataUrl, { cache: "no-store" });
@@ -67,10 +83,21 @@ async function loadBaseData() {
 
 function favoriteTemplate(item, index) {
   return `
-    <div class="favorite-editor-item" data-index="${index}">
-      <label>Badge<input type="text" data-favorite-field="badge" value="${item.badge.replace(/"/g, "&quot;")}" /></label>
-      <label>Title<input type="text" data-favorite-field="title" value="${item.title.replace(/"/g, "&quot;")}" /></label>
-      <label>Description<textarea rows="3" data-favorite-field="text">${item.text}</textarea></label>
+    <div class="editor-item" data-index="${index}">
+      <label>Badge<input type="text" data-favorite-field="badge" value="${escapeHtml(item.badge)}" /></label>
+      <label>Title<input type="text" data-favorite-field="title" value="${escapeHtml(item.title)}" /></label>
+      <label>Description<textarea rows="3" data-favorite-field="text">${escapeHtml(item.text)}</textarea></label>
+    </div>
+  `;
+}
+
+function assetTemplate(item, index, group) {
+  return `
+    <div class="editor-item asset-editor" data-index="${index}" data-group="${group}">
+      <label>Title<input type="text" data-asset-field="title" value="${escapeHtml(item.title)}" /></label>
+      <label>Description<textarea rows="3" data-asset-field="text">${escapeHtml(item.text)}</textarea></label>
+      <label>Image Upload<input type="file" data-asset-field="file" accept="image/*" /></label>
+      <img src="${item.image || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw=="}" alt="" />
     </div>
   `;
 }
@@ -101,8 +128,15 @@ function populateForm() {
   fieldMap.instagramText.value = siteData.social.text;
   fieldMap.instagramButtonText.value = siteData.social.buttonText;
   fieldMap.footerTagline.value = siteData.footer.tagline;
+  fieldMap.galleryTitle.value = siteData.gallery.title;
+  fieldMap.galleryText.value = siteData.gallery.text;
+  fieldMap.menuTitle.value = siteData.menuGallery.title;
+  fieldMap.menuText.value = siteData.menuGallery.text;
 
   favoritesEditor.innerHTML = siteData.favorites.map(favoriteTemplate).join("");
+  galleryEditor.innerHTML = siteData.gallery.items.map((item, index) => assetTemplate(item, index, "gallery")).join("");
+  menuEditor.innerHTML = siteData.menuGallery.items.map((item, index) => assetTemplate(item, index, "menuGallery")).join("");
+  document.getElementById("github-token-input").value = window.localStorage.getItem(GITHUB_TOKEN_KEY) || "";
 }
 
 function updateDataFromForm() {
@@ -135,9 +169,25 @@ function updateDataFromForm() {
   siteData.social.text = fieldMap.instagramText.value.trim();
   siteData.social.buttonText = fieldMap.instagramButtonText.value.trim();
   siteData.footer.tagline = fieldMap.footerTagline.value.trim();
+  siteData.gallery.title = fieldMap.galleryTitle.value.trim();
+  siteData.gallery.text = fieldMap.galleryText.value.trim();
+  siteData.menuGallery.title = fieldMap.menuTitle.value.trim();
+  siteData.menuGallery.text = fieldMap.menuText.value.trim();
 
-  document.querySelectorAll(".favorite-editor-item").forEach((item) => {
+  document.querySelectorAll(".editor-item").forEach((item) => {
     const index = Number(item.dataset.index);
+    const group = item.dataset.group;
+
+    if (group === "gallery" || group === "menuGallery") {
+      const targetGroup = siteData[group].items;
+      targetGroup[index] = {
+        ...targetGroup[index],
+        title: item.querySelector('[data-asset-field="title"]').value.trim(),
+        text: item.querySelector('[data-asset-field="text"]').value.trim(),
+      };
+      return;
+    }
+
     siteData.favorites[index] = {
       badge: item.querySelector('[data-favorite-field="badge"]').value.trim(),
       title: item.querySelector('[data-favorite-field="title"]').value.trim(),
@@ -166,6 +216,84 @@ function downloadFile(filename, content, type) {
   URL.revokeObjectURL(url);
 }
 
+function getCropGeometry() {
+  const img = cropState.image;
+  const cropSize = 180;
+  const cropX = (cropperCanvas.width - cropSize) / 2;
+  const cropY = (cropperCanvas.height - cropSize) / 2;
+  const baseScale = Math.min(cropperCanvas.width / img.width, cropperCanvas.height / img.height);
+  const scale = baseScale * cropState.zoom;
+  const drawWidth = img.width * scale;
+  const drawHeight = img.height * scale;
+  const drawX = (cropperCanvas.width - drawWidth) / 2 + cropState.offsetX;
+  const drawY = (cropperCanvas.height - drawHeight) / 2 + cropState.offsetY;
+
+  return {
+    cropSize,
+    cropX,
+    cropY,
+    drawWidth,
+    drawHeight,
+    drawX,
+    drawY,
+  };
+}
+
+function getTransparentLogoDataUrl(size = 512) {
+  if (!cropState.image) {
+    return "";
+  }
+
+  const { cropSize, cropX, cropY, drawWidth, drawHeight, drawX, drawY } = getCropGeometry();
+  const exportCanvas = document.createElement("canvas");
+  exportCanvas.width = size;
+  exportCanvas.height = size;
+  const exportContext = exportCanvas.getContext("2d");
+
+  exportContext.drawImage(
+    cropState.image,
+    ((cropX - drawX) / drawWidth) * cropState.image.width,
+    ((cropY - drawY) / drawHeight) * cropState.image.height,
+    (cropSize / drawWidth) * cropState.image.width,
+    (cropSize / drawHeight) * cropState.image.height,
+    0,
+    0,
+    size,
+    size
+  );
+
+  const imageData = exportContext.getImageData(0, 0, size, size);
+  const { data } = imageData;
+  for (let index = 0; index < data.length; index += 4) {
+    const red = data[index];
+    const green = data[index + 1];
+    const blue = data[index + 2];
+
+    if (red > 245 && green > 245 && blue > 245) {
+      data[index + 3] = 0;
+    } else if (red > 232 && green > 232 && blue > 232) {
+      data[index + 3] = Math.max(0, 255 - ((red + green + blue) / 3 - 232) * 10);
+    }
+  }
+
+  exportContext.putImageData(imageData, 0, 0);
+  return exportCanvas.toDataURL("image/png");
+}
+
+function renderLogoPreview() {
+  logoPreviewContext.clearRect(0, 0, logoPreviewCanvas.width, logoPreviewCanvas.height);
+  const dataUrl = getTransparentLogoDataUrl(256);
+  if (!dataUrl) {
+    return;
+  }
+
+  const image = new Image();
+  image.onload = () => {
+    logoPreviewContext.drawImage(image, 0, 0, logoPreviewCanvas.width, logoPreviewCanvas.height);
+  };
+  image.src = dataUrl;
+}
+
 function drawCropper() {
   cropperContext.clearRect(0, 0, cropperCanvas.width, cropperCanvas.height);
 
@@ -178,40 +306,18 @@ function drawCropper() {
     return;
   }
 
-  const img = cropState.image;
-  const baseScale = Math.min(cropperCanvas.width / img.width, cropperCanvas.height / img.height);
-  const scale = baseScale * cropState.zoom;
-  const drawWidth = img.width * scale;
-  const drawHeight = img.height * scale;
-  const drawX = (cropperCanvas.width - drawWidth) / 2 + cropState.offsetX;
-  const drawY = (cropperCanvas.height - drawHeight) / 2 + cropState.offsetY;
+  const { cropSize, cropX, cropY, drawWidth, drawHeight, drawX, drawY } = getCropGeometry();
 
-  cropperContext.drawImage(img, drawX, drawY, drawWidth, drawHeight);
-
-  const size = 180;
-  const cropX = (cropperCanvas.width - size) / 2;
-  const cropY = (cropperCanvas.height - size) / 2;
-
+  cropperContext.drawImage(cropState.image, drawX, drawY, drawWidth, drawHeight);
   cropperContext.fillStyle = "rgba(67, 43, 32, 0.45)";
   cropperContext.fillRect(0, 0, cropperCanvas.width, cropperCanvas.height);
-  cropperContext.clearRect(cropX, cropY, size, size);
-  cropperContext.drawImage(img, drawX, drawY, drawWidth, drawHeight);
+  cropperContext.clearRect(cropX, cropY, cropSize, cropSize);
+  cropperContext.drawImage(cropState.image, drawX, drawY, drawWidth, drawHeight);
   cropperContext.strokeStyle = "#e4ab24";
   cropperContext.lineWidth = 3;
-  cropperContext.strokeRect(cropX, cropY, size, size);
+  cropperContext.strokeRect(cropX, cropY, cropSize, cropSize);
 
-  logoPreviewContext.clearRect(0, 0, logoPreviewCanvas.width, logoPreviewCanvas.height);
-  logoPreviewContext.drawImage(
-    cropperCanvas,
-    cropX,
-    cropY,
-    size,
-    size,
-    0,
-    0,
-    logoPreviewCanvas.width,
-    logoPreviewCanvas.height
-  );
+  renderLogoPreview();
 }
 
 function bindCropper() {
@@ -243,12 +349,170 @@ function bindCropper() {
   });
 }
 
+async function handleAssetFileInput(input) {
+  const [file] = input.files;
+  if (!file) {
+    return;
+  }
+
+  const dataUrl = await new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.readAsDataURL(file);
+  });
+
+  const container = input.closest(".asset-editor");
+  const group = container.dataset.group;
+  const index = Number(container.dataset.index);
+  siteData[group].items[index].image = dataUrl;
+  container.querySelector("img").src = dataUrl;
+  updatePreview();
+}
+
+async function getFileSha(owner, repo, branch, path, token) {
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+    },
+  });
+
+  if (response.status === 404) {
+    return null;
+  }
+
+  if (!response.ok) {
+    throw new Error(`Failed to read ${path}`);
+  }
+
+  const data = await response.json();
+  return data.sha;
+}
+
+async function upsertFile(owner, repo, branch, path, contentBase64, token, message) {
+  const sha = await getFileSha(owner, repo, branch, path, token);
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}`, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message,
+      branch,
+      content: contentBase64,
+      sha: sha || undefined,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to publish ${path}`);
+  }
+}
+
+function dataUrlToBase64(dataUrl) {
+  return dataUrl.split(",")[1];
+}
+
+function extensionForDataUrl(dataUrl) {
+  if (dataUrl.startsWith("data:image/png")) {
+    return "png";
+  }
+  if (dataUrl.startsWith("data:image/jpeg")) {
+    return "jpg";
+  }
+  if (dataUrl.startsWith("data:image/webp")) {
+    return "webp";
+  }
+  return "png";
+}
+
+async function publishToGitHub() {
+  updateDataFromForm();
+
+  const token = document.getElementById("github-token-input").value.trim();
+  const owner = document.getElementById("github-owner-input").value.trim();
+  const repo = document.getElementById("github-repo-input").value.trim();
+  const branch = document.getElementById("github-branch-input").value.trim();
+
+  if (!token || !owner || !repo || !branch) {
+    publishStatus.textContent = "Token, owner, repo, and branch are all required.";
+    return;
+  }
+
+  window.localStorage.setItem(GITHUB_TOKEN_KEY, token);
+  publishStatus.textContent = "Publishing to GitHub...";
+
+  try {
+    const publishData = structuredClone(siteData);
+    const uploads = [];
+
+    if (publishData.business.logo.startsWith("data:")) {
+      uploads.push({
+        path: "assets/uploads/logo.png",
+        content: dataUrlToBase64(publishData.business.logo),
+      });
+      publishData.business.logo = "assets/uploads/logo.png";
+    }
+
+    if (publishData.meta.favicon.startsWith("data:")) {
+      uploads.push({
+        path: "assets/uploads/favicon.png",
+        content: dataUrlToBase64(publishData.meta.favicon),
+      });
+      publishData.meta.favicon = "assets/uploads/favicon.png";
+    }
+
+    for (const [section, items] of [
+      ["gallery", publishData.gallery.items],
+      ["menu", publishData.menuGallery.items],
+    ]) {
+      items.forEach((item, index) => {
+        if (item.image.startsWith("data:")) {
+          const extension = extensionForDataUrl(item.image);
+          const path = `assets/uploads/${section}-${index + 1}.${extension}`;
+          uploads.push({ path, content: dataUrlToBase64(item.image) });
+          item.image = path;
+        }
+      });
+    }
+
+    for (const file of uploads) {
+      await upsertFile(owner, repo, branch, file.path, file.content, token, `Update ${file.path}`);
+    }
+
+    const jsonBase64 = btoa(unescape(encodeURIComponent(JSON.stringify(publishData, null, 2))));
+    await upsertFile(owner, repo, branch, "data/site-content.json", jsonBase64, token, "Update site content");
+
+    publishStatus.textContent = "Published successfully. GitHub Pages should rebuild in a minute or two.";
+    siteData = publishData;
+    updatePreview();
+  } catch (error) {
+    publishStatus.textContent = error.message;
+  }
+}
+
 function bindEvents() {
   Object.values(fieldMap).forEach((field) => {
     field.addEventListener("input", updatePreview);
   });
 
   favoritesEditor.addEventListener("input", updatePreview);
+  galleryEditor.addEventListener("input", updatePreview);
+  menuEditor.addEventListener("input", updatePreview);
+
+  galleryEditor.addEventListener("change", (event) => {
+    if (event.target.matches('[data-asset-field="file"]')) {
+      handleAssetFileInput(event.target);
+    }
+  });
+
+  menuEditor.addEventListener("change", (event) => {
+    if (event.target.matches('[data-asset-field="file"]')) {
+      handleAssetFileInput(event.target);
+    }
+  });
 
   document.getElementById("save-draft-button").addEventListener("click", () => {
     updatePreview();
@@ -291,13 +555,39 @@ function bindEvents() {
     reader.readAsDataURL(file);
   });
 
+  document.getElementById("use-logo-button").addEventListener("click", () => {
+    const logoDataUrl = getTransparentLogoDataUrl(512);
+    if (!logoDataUrl) {
+      return;
+    }
+    siteData.business.logo = logoDataUrl;
+    siteData.meta.favicon = getTransparentLogoDataUrl(64);
+    updatePreview();
+  });
+
   document.getElementById("download-logo-button").addEventListener("click", () => {
-    const dataUrl = logoPreviewCanvas.toDataURL("image/png");
+    const dataUrl = getTransparentLogoDataUrl(512);
+    if (!dataUrl) {
+      return;
+    }
     const link = document.createElement("a");
     link.href = dataUrl;
     link.download = "mill-bakery-logo.png";
     link.click();
   });
+
+  document.getElementById("download-favicon-button").addEventListener("click", () => {
+    const dataUrl = getTransparentLogoDataUrl(64);
+    if (!dataUrl) {
+      return;
+    }
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "mill-bakery-favicon.png";
+    link.click();
+  });
+
+  document.getElementById("publish-button").addEventListener("click", publishToGitHub);
 }
 
 async function init() {

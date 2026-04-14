@@ -65,5 +65,47 @@
   },
   "footer": {
     "tagline": "Mexican pastries, breakfast burritos, coffee, and pan dulce."
+  },
+  "gallery": {
+    "title": "A quick look inside Mill Bakery",
+    "text": "Fresh pastry trays, coffee, and the bakery counter all in one place.",
+    "items": [
+      {
+        "title": "Pastry Counter",
+        "text": "Upload an interior or pastry-case photo here.",
+        "image": ""
+      },
+      {
+        "title": "Morning Coffee",
+        "text": "Show coffee service, burritos, or a breakfast setup.",
+        "image": ""
+      },
+      {
+        "title": "Fresh Bakes",
+        "text": "Use this slot for conchas, pan dulce, or daily specials.",
+        "image": ""
+      }
+    ]
+  },
+  "menuGallery": {
+    "title": "Upload menu snapshots or specialty boards",
+    "text": "This section is built for quick image updates whenever the menu changes.",
+    "items": [
+      {
+        "title": "Menu Board",
+        "text": "Add a photo of a printed menu or counter board.",
+        "image": ""
+      },
+      {
+        "title": "Breakfast Specials",
+        "text": "Use this for burrito specials, combo boards, or promos.",
+        "image": ""
+      },
+      {
+        "title": "Seasonal Items",
+        "text": "Swap in any limited-run pastries or featured drinks.",
+        "image": ""
+      }
+    ]
   }
 }

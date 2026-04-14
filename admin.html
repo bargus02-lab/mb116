@@ -18,7 +18,7 @@
         <header class="admin-header">
           <div>
             <p class="admin-eyebrow">Mill Bakery Editor</p>
-            <h1>Edit content, logo, and preview before publishing</h1>
+            <h1>Edit content, logo, photos, and publish from one screen</h1>
           </div>
           <div class="admin-actions">
             <button id="save-draft-button" class="admin-button admin-button-primary">Save Draft</button>
@@ -68,14 +68,28 @@
 
             <div class="editor-block">
               <h2>Favorites</h2>
-              <div id="favorites-editor" class="favorite-editor-list"></div>
+              <div id="favorites-editor" class="editor-list"></div>
+            </div>
+
+            <div class="editor-block">
+              <h2>Bakery Gallery</h2>
+              <label>Gallery Title<input id="gallery-title-input" type="text" /></label>
+              <label>Gallery Intro<textarea id="gallery-text-input" rows="3"></textarea></label>
+              <div id="gallery-editor" class="editor-list"></div>
+            </div>
+
+            <div class="editor-block">
+              <h2>Menu Gallery</h2>
+              <label>Menu Title<input id="menu-title-input" type="text" /></label>
+              <label>Menu Intro<textarea id="menu-text-input" rows="3"></textarea></label>
+              <div id="menu-editor" class="editor-list"></div>
             </div>
 
             <div class="editor-block">
               <h2>Logo Uploader</h2>
               <p class="editor-help">
-                Import a logo image, drag the crop box, then download a square PNG to
-                replace the current logo manually or hand it back to me to wire in.
+                Import a logo image, drag the crop box, and use the result as the site
+                logo and favicon. White backgrounds are removed automatically.
               </p>
               <input id="logo-upload" type="file" accept="image/*" />
               <div class="cropper-shell">
@@ -85,12 +99,31 @@
                 <label>Zoom<input id="crop-zoom" type="range" min="1" max="3" step="0.01" value="1" /></label>
               </div>
               <div class="cropper-actions">
-                <button id="download-logo-button" class="admin-button admin-button-primary">Download Cropped Logo</button>
+                <button id="use-logo-button" class="admin-button">Use Cropped Logo</button>
+                <button id="download-logo-button" class="admin-button admin-button-primary">Download Logo PNG</button>
+                <button id="download-favicon-button" class="admin-button">Download Favicon PNG</button>
               </div>
               <div class="logo-preview-shell">
                 <p>Preview</p>
                 <canvas id="logo-preview-canvas" width="180" height="180"></canvas>
               </div>
+            </div>
+
+            <div class="editor-block">
+              <h2>Publish to GitHub</h2>
+              <p class="editor-help">
+                Paste a GitHub personal access token with repository contents write
+                access. It is stored only in this browser and used to update the repo
+                directly.
+              </p>
+              <label>GitHub Token<input id="github-token-input" type="password" placeholder="github_pat_..." /></label>
+              <label>Repo Owner<input id="github-owner-input" type="text" value="bargus02-lab" /></label>
+              <label>Repo Name<input id="github-repo-input" type="text" value="mb116" /></label>
+              <label>Branch<input id="github-branch-input" type="text" value="main" /></label>
+              <div class="publish-actions">
+                <button id="publish-button" class="admin-button admin-button-primary">Publish Live</button>
+              </div>
+              <p id="publish-status" class="publish-status">No publish run yet.</p>
             </div>
           </section>
 

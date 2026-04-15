@@ -68,22 +68,22 @@
   },
   "gallery": {
     "title": "A quick look inside Mill Bakery",
-    "text": "Fresh pastry trays, coffee, and the bakery counter all in one place.",
+    "text": "Fresh pastries, the front counter, and a breakfast favorite from inside the bakery.",
     "items": [
       {
-        "title": "Pastry Counter",
-        "text": "Upload an interior or pastry-case photo here.",
-        "image": ""
+        "title": "Pastry Case",
+        "text": "Donuts, conchas, and pan dulce lined up fresh in the bakery case.",
+        "image": "assets/gallery/pastry-case.jpg"
       },
       {
-        "title": "Morning Coffee",
-        "text": "Show coffee service, burritos, or a breakfast setup.",
-        "image": ""
+        "title": "Inside the Bakery",
+        "text": "The front counter, menu boards, and pastry trays waiting for the morning rush.",
+        "image": "assets/gallery/storefront-counter.jpg"
       },
       {
-        "title": "Fresh Bakes",
-        "text": "Use this slot for conchas, pan dulce, or daily specials.",
-        "image": ""
+        "title": "Breakfast Burrito",
+        "text": "One of the warm breakfast favorites that regulars come back for.",
+        "image": "assets/gallery/breakfast-burrito.jpg"
       }
     ]
   },

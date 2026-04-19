@@ -18,7 +18,7 @@ const defaultContent = {
     mapEmbedUrl:
       "https://www.google.com/maps?q=116+W+MacArthur+Blvd,+Santa+Ana,+CA+92707&z=15&output=embed",
     instagramUrl: "https://www.instagram.com/millbakery.oc/",
-    hoursDisplay: "Daily: 5:00 AM - 12:00 PM",
+    hoursDisplay: "Daily: 5:00 AM - 1:00 PM",
     hoursNote: "Hours based on current public listings and may change.",
     logo: "assets/logo-windmill-transparent.png",
   },

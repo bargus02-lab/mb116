@@ -1,6 +1,26 @@
 const yearElement = document.getElementById("year");
 let activeMenuCategory = "all";
 
+const TICKER = [
+  "Pan dulce",
+  "Conchas",
+  "Breakfast burritos",
+  "Coffee",
+  "Licuados",
+  "Empanadas",
+  "Breakfast tortas",
+  "Fresh juices",
+  "Smoothies",
+  "Chorizo & eggs",
+  "Carne asada",
+];
+
+const HOURS = {
+  openMin: 300,
+  closeMin: 780,
+  closingWarnMin: 45,
+};
+
 const defaultContent = {
   meta: {
     title: "Mill Bakery | Santa Ana Bakery and Breakfast Burritos",
@@ -18,7 +38,7 @@ const defaultContent = {
     mapEmbedUrl:
       "https://www.google.com/maps?q=116+W+MacArthur+Blvd,+Santa+Ana,+CA+92707&z=15&output=embed",
     instagramUrl: "https://www.instagram.com/millbakery.oc/",
-    hoursDisplay: "Daily: 5:00 AM - 12:00 PM",
+    hoursDisplay: "Daily: 5:00 AM - 1:00 PM",
     hoursNote: "Hours based on current public listings and may change.",
     logo: "assets/logo-windmill-transparent.png",
   },
@@ -26,15 +46,12 @@ const defaultContent = {
     eyebrow: "Santa Ana bakery and breakfast stop",
     title: "Fresh pan dulce, breakfast burritos, and coffee every morning",
     text:
-      "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites for busy mornings.",
+      "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites.",
     highlights: [
       "Fresh pastries daily",
       "Known for breakfast burritos",
-      "Easy pickup on MacArthur",
+      "Open 5 AM – 1 PM",
     ],
-    badgeTitle: "Warm mornings start here",
-    badgeText:
-      "Fresh coffee, warm pastries, and a welcoming stop to start the day right.",
   },
   about: {
     title: "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -45,6 +62,12 @@ const defaultContent = {
   },
   favorites: [
     {
+      badge: "Local standout",
+      title: "Breakfast burritos",
+      text:
+        "A go-to for regulars looking for a filling breakfast that is quick, hot, and easy to grab.",
+    },
+    {
       badge: "Sweet bread",
       title: "Conchas",
       text: "Soft, fluffy, and fresh for the morning pastry run or an afternoon treat.",
@@ -52,12 +75,7 @@ const defaultContent = {
     {
       badge: "Bakery classic",
       title: "Pan dulce",
-      text: "A colorful pastry case with classic Mexican bakery favorites and familiar daily staples.",
-    },
-    {
-      badge: "Local standout",
-      title: "Breakfast burritos",
-      text: "A go-to order for regulars looking for a filling breakfast that is quick, hot, and easy to grab.",
+      text: "A colorful pastry case with classic Mexican bakery favorites and daily staples.",
     },
     {
       badge: "Morning essential",
@@ -66,32 +84,32 @@ const defaultContent = {
     },
   ],
   social: {
-    title: "Follow along for fresh bakes and daily bakery updates",
+    title: "Follow along for daily pastry and bakery updates",
     text:
       "See what is coming out of the pastry case, keep up with breakfast favorites, and follow the bakery on Instagram.",
     buttonText: "Follow @millbakery.oc",
   },
   footer: {
-    tagline: "Mexican pastries, breakfast burritos, coffee, and pan dulce.",
+    tagline: "Mexican pastries, breakfast burritos, coffee, and pan dulce — Santa Ana.",
   },
   gallery: {
     title: "A quick look inside Mill Bakery",
-    text: "Fresh pastry trays, coffee, and the bakery counter all in one place.",
+    text: "Fresh pastries, the front counter, and a breakfast favorite from inside the bakery.",
     items: [
       {
-        title: "Pastry Counter",
-        text: "Upload an interior or pastry-case photo here.",
-        image: "",
+        title: "Pastry Case",
+        text: "Donuts, conchas, and pan dulce lined up fresh in the bakery case every morning.",
+        image: "assets/gallery/pastry-case.jpg",
       },
       {
-        title: "Morning Coffee",
-        text: "Show coffee service, burritos, or a breakfast setup.",
-        image: "",
+        title: "Inside the Bakery",
+        text: "The front counter, menu boards, and pastry trays waiting for the morning rush.",
+        image: "assets/gallery/storefront-counter.jpg",
       },
       {
-        title: "Fresh Bakes",
-        text: "Use this slot for conchas, pan dulce, or daily specials.",
-        image: "",
+        title: "Breakfast Burrito",
+        text: "One of the warm breakfast favorites that regulars come back for.",
+        image: "assets/gallery/breakfast-burrito.jpg",
       },
     ],
   },
@@ -102,70 +120,24 @@ const defaultContent = {
       {
         title: "Breakfast Burritos",
         items: [
-          {
-            title: "#0 Eggs, Beans & Cheese",
-            description: "2 eggs, pinto beans, and jack cheese",
-            price: "$8.95",
-          },
-          {
-            title: "#1 Beans & Cheese",
-            description: "Pinto beans and jack cheese",
-            price: "$8.50",
-          },
-          {
-            title: "#2 Eggs & Cheese",
-            description: "2 eggs and jack cheese",
-            price: "$8.95",
-          },
-          {
-            title: "#3 Ham & Eggs",
-            description: "Ham, eggs, pinto beans, and jack cheese",
-            price: "$10.50",
-          },
-          {
-            title: "#4 Chorizo & Eggs",
-            description: "Chorizo, eggs, pinto beans, and jack cheese",
-            price: "$10.50",
-          },
-          {
-            title: "#5 Potatoes & Eggs",
-            description: "Potatoes, eggs, and jack cheese",
-            price: "$9.95",
-          },
-          {
-            title: "#6 Mexican",
-            description: "Eggs, sauteed tomatoes, onions, and jalapenos",
-            price: "$9.95",
-          },
-          {
-            title: "#7 Bacon & Eggs",
-            description: "Bacon, eggs, pinto beans, and jack cheese",
-            price: "$10.50",
-          },
-          {
-            title: "#8 Sausage & Eggs",
-            description: "Sausage, eggs, pinto beans, and jack cheese",
-            price: "$10.50",
-          },
-          {
-            title: "#9 Salchichas & Huevos",
-            description: "Beef hot dog sausage, eggs, and jack cheese",
-            price: "$10.50",
-          },
-          {
-            title: "#10 Carne Asada",
-            description:
-              "Carne asada, pinto beans, onions, cilantro, and a side of hot salsa",
-            price: "$12.95",
-          },
+          { title: "#0 Eggs, Beans & Cheese", description: "2 eggs, pinto beans, and jack cheese", price: "$8.95" },
+          { title: "#1 Beans & Cheese", description: "Pinto beans and jack cheese", price: "$8.50" },
+          { title: "#2 Eggs & Cheese", description: "2 eggs and jack cheese", price: "$8.95" },
+          { title: "#3 Ham & Eggs", description: "Ham, eggs, pinto beans, and jack cheese", price: "$10.50" },
+          { title: "#4 Chorizo & Eggs", description: "Chorizo, eggs, pinto beans, and jack cheese", price: "$10.50" },
+          { title: "#5 Potatoes & Eggs", description: "Potatoes, eggs, and jack cheese", price: "$9.95" },
+          { title: "#6 Mexican", description: "Eggs, sauteed tomatoes, onions, and jalapenos", price: "$9.95" },
+          { title: "#7 Bacon & Eggs", description: "Bacon, eggs, pinto beans, and jack cheese", price: "$10.50" },
+          { title: "#8 Sausage & Eggs", description: "Sausage, eggs, pinto beans, and jack cheese", price: "$10.50" },
+          { title: "#9 Salchichas & Huevos", description: "Beef hot dog sausage, eggs, and jack cheese", price: "$10.50" },
+          { title: "#10 Carne Asada", description: "Carne asada, pinto beans, onions, cilantro, and a side of hot salsa", price: "$12.95" },
         ],
         note: "Add avocado or cheese to carne asada for $1.50.",
       },
       {
         title: "Breakfast Tortas",
         price: "$10.50",
-        description:
-          "2 scrambled eggs, mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        description: "2 scrambled eggs, mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
         items: [
           { title: "Ham" },
           { title: "Chorizo" },
@@ -179,8 +151,7 @@ const defaultContent = {
       {
         title: "Tortas",
         price: "$7.50",
-        description:
-          "French roll, butter croissant, or sandwich bread with mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
+        description: "French roll, butter croissant, or sandwich bread with mayonnaise, sliced jalapenos, tomatoes, and lettuce.",
         note: "Extras $1.50 each: avocado, queso fresco, or turkey ham.",
       },
       {
@@ -221,18 +192,9 @@ const defaultContent = {
         title: "Empanadas",
         price: "$4.95",
         items: [
-          {
-            title: "Beef",
-            description: "Ground beef, diced potatoes, and tomatoes",
-          },
-          {
-            title: "Chicken",
-            description: "Chicken breast with dark mole sauce",
-          },
-          {
-            title: "Tuna",
-            description: "Tuna, potatoes, onions, tomatoes, and jalapenos",
-          },
+          { title: "Beef", description: "Ground beef, diced potatoes, and tomatoes" },
+          { title: "Chicken", description: "Chicken breast with dark mole sauce" },
+          { title: "Tuna", description: "Tuna, potatoes, onions, tomatoes, and jalapenos" },
         ],
       },
     ],
@@ -272,6 +234,14 @@ function setText(id, value) {
   }
 }
 
+function setHTML(id, html) {
+  const element = document.getElementById(id);
+
+  if (element) {
+    element.innerHTML = html;
+  }
+}
+
 function setLink(id, href, text) {
   const element = document.getElementById(id);
 
@@ -284,8 +254,8 @@ function setLink(id, href, text) {
   }
 }
 
-function renderList(id, items) {
-  const list = document.getElementById(id);
+function renderHighlights(items) {
+  const list = document.getElementById("hero-highlights");
 
   if (!list) {
     return;
@@ -300,6 +270,68 @@ function renderList(id, items) {
   }
 }
 
+function renderMarquee() {
+  const track = document.getElementById("marquee-track");
+
+  if (!track) {
+    return;
+  }
+
+  track.innerHTML = "";
+  const items = [...TICKER, ...TICKER];
+
+  for (const text of items) {
+    const span = document.createElement("span");
+    span.textContent = text;
+    const dot = document.createElement("span");
+    dot.className = "marquee-dot";
+    dot.textContent = "·";
+    span.appendChild(dot);
+    track.appendChild(span);
+  }
+}
+
+function getPacificMinutes() {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "America/Los_Angeles",
+    hour12: false,
+    hour: "2-digit",
+    minute: "2-digit",
+  }).formatToParts(new Date());
+
+  const hour = Number(parts.find((p) => p.type === "hour").value);
+  const minute = Number(parts.find((p) => p.type === "minute").value);
+  return hour * 60 + minute;
+}
+
+function updateOpenStatus() {
+  const badge = document.getElementById("status-badge");
+
+  if (!badge) {
+    return;
+  }
+
+  const t = getPacificMinutes();
+  const isOpen = t >= HOURS.openMin && t < HOURS.closeMin;
+  const closingSoon = isOpen && t >= HOURS.closeMin - HOURS.closingWarnMin;
+
+  badge.classList.remove("is-open", "is-closing-soon", "is-closed");
+  badge.removeAttribute("hidden");
+
+  const text = badge.querySelector(".status-text");
+
+  if (closingSoon) {
+    badge.classList.add("is-closing-soon");
+    if (text) text.textContent = "Closing soon";
+  } else if (isOpen) {
+    badge.classList.add("is-open");
+    if (text) text.textContent = "Open now";
+  } else {
+    badge.classList.add("is-closed");
+    if (text) text.textContent = "Closed — opens 5 AM";
+  }
+}
+
 function renderFavorites(items) {
   const grid = document.getElementById("favorites-grid");
 
@@ -309,22 +341,24 @@ function renderFavorites(items) {
 
   grid.innerHTML = "";
 
-  for (const item of items) {
+  items.forEach((item, idx) => {
     const article = document.createElement("article");
     article.className = "item-card";
 
     article.innerHTML = `
+      <span class="item-number"></span>
       <span class="item-badge"></span>
       <h3></h3>
       <p></p>
     `;
 
+    article.querySelector(".item-number").textContent = String(idx + 1);
     article.querySelector(".item-badge").textContent = item.badge;
     article.querySelector("h3").textContent = item.title;
     article.querySelector("p").textContent = item.text;
 
     grid.appendChild(article);
-  }
+  });
 }
 
 function renderImageCards(id, items) {
@@ -345,8 +379,10 @@ function renderImageCards(id, items) {
     }
 
     figure.innerHTML = `
-      <div class="image-placeholder">Photo Placeholder</div>
-      <img alt="" />
+      <div class="image-card-frame">
+        <div class="image-placeholder">Photo Placeholder</div>
+        <img alt="" />
+      </div>
       <figcaption>
         <h3></h3>
         <p></p>
@@ -354,7 +390,9 @@ function renderImageCards(id, items) {
     `;
 
     const image = figure.querySelector("img");
-    image.src = item.image || "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+    image.src =
+      item.image ||
+      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
     image.alt = item.title;
 
     figure.querySelector("h3").textContent = item.title;
@@ -373,14 +411,20 @@ function renderMenuCategories(categories) {
   }
 
   const categoryTitles = categories.map((category) => category.title);
-  if (activeMenuCategory !== "all" && !categoryTitles.includes(activeMenuCategory)) {
+  if (
+    activeMenuCategory !== "all" &&
+    !categoryTitles.includes(activeMenuCategory)
+  ) {
     activeMenuCategory = "all";
   }
 
   if (tabs) {
     const tabItems = [
       { label: "All", value: "all" },
-      ...categories.map((category) => ({ label: category.title, value: category.title })),
+      ...categories.map((category) => ({
+        label: category.title,
+        value: category.title,
+      })),
     ];
 
     tabs.innerHTML = "";
@@ -388,7 +432,9 @@ function renderMenuCategories(categories) {
     for (const tab of tabItems) {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = `menu-tab${tab.value === activeMenuCategory ? " is-active" : ""}`;
+      button.className = `menu-tab${
+        tab.value === activeMenuCategory ? " is-active" : ""
+      }`;
       button.textContent = tab.label;
       button.addEventListener("click", () => {
         activeMenuCategory = tab.value;
@@ -409,8 +455,9 @@ function renderMenuCategories(categories) {
     const article = document.createElement("article");
     article.className = "menu-card";
 
-    const itemsHtml = Array.isArray(category.items) && category.items.length
-      ? `
+    const itemsHtml =
+      Array.isArray(category.items) && category.items.length
+        ? `
         <ul class="menu-list">
           ${category.items
             .map(
@@ -418,24 +465,40 @@ function renderMenuCategories(categories) {
                 <li>
                   <div class="menu-item-line">
                     <strong>${item.title ?? ""}</strong>
-                    ${item.price ? `<span class="menu-item-price">${item.price}</span>` : ""}
+                    ${
+                      item.price
+                        ? `<span class="menu-item-price">${item.price}</span>`
+                        : ""
+                    }
                   </div>
-                  ${item.description ? `<p class="menu-item-details">${item.description}</p>` : ""}
+                  ${
+                    item.description
+                      ? `<p class="menu-item-details">${item.description}</p>`
+                      : ""
+                  }
                 </li>
               `
             )
             .join("")}
         </ul>
       `
-      : "";
+        : "";
 
     article.innerHTML = `
       <div class="menu-card-header">
         <div>
           <h3>${category.title}</h3>
-          ${category.description ? `<p class="menu-card-copy">${category.description}</p>` : ""}
+          ${
+            category.description
+              ? `<p class="menu-card-copy">${category.description}</p>`
+              : ""
+          }
         </div>
-        ${category.price ? `<div class="menu-card-price">${category.price}</div>` : ""}
+        ${
+          category.price
+            ? `<div class="menu-card-price">${category.price}</div>`
+            : ""
+        }
       </div>
       ${itemsHtml}
       ${category.note ? `<p class="menu-note">${category.note}</p>` : ""}
@@ -458,6 +521,15 @@ function renderLogoAssets(logoSrc, faviconSrc) {
   }
 }
 
+function formatHoursShort(hoursDisplay) {
+  return (hoursDisplay || "").replace("Daily: ", "Daily ");
+}
+
+function buildShortAddress(addressLine1, addressLine2) {
+  const city = (addressLine2 || "").split(",")[0].trim();
+  return city ? `${addressLine1}, ${city}` : addressLine1;
+}
+
 function applySiteContent(content) {
   document.title = content.meta.title;
 
@@ -469,18 +541,21 @@ function applySiteContent(content) {
   renderLogoAssets(content.business.logo, content.meta.favicon);
 
   setText("brand-name", content.business.name);
+
   setText("hero-eyebrow", content.hero.eyebrow);
   setText("hero-title", content.hero.title);
   setText("hero-text", content.hero.text);
-  renderList("hero-highlights", content.hero.highlights);
-  setText("hero-badge-label", content.business.name);
-  setText("hero-badge-title", content.hero.badgeTitle);
-  setText("hero-badge-text", content.hero.badgeText);
-  setText("hero-stat-address", content.business.addressLine1);
+  renderHighlights(content.hero.highlights);
+
+  setText(
+    "hero-stat-address",
+    buildShortAddress(content.business.addressLine1, content.business.addressLine2)
+  );
   setText("hero-stat-phone", content.business.phoneDisplay);
-  setText("hero-stat-hours", content.business.hoursDisplay.replace("Daily: ", ""));
+  setText("hero-stat-hours", formatHoursShort(content.business.hoursDisplay));
 
   setLink("call-now-link", `tel:${content.business.phoneLink}`);
+  setLink("visit-call-link", `tel:${content.business.phoneLink}`);
   setLink("directions-link", content.business.directionsUrl);
   setLink("open-maps-link", content.business.directionsUrl);
 
@@ -489,9 +564,11 @@ function applySiteContent(content) {
   setText("about-copy-2", content.about.paragraphs[1]);
 
   renderFavorites(content.favorites);
+
   setText("gallery-title", content.gallery.title);
   setText("gallery-text", content.gallery.text);
   renderImageCards("gallery-grid", content.gallery.items);
+
   setText("menu-title", content.menu.title);
   setText("menu-text", content.menu.text);
   renderMenuCategories(content.menu.categories);
@@ -499,8 +576,15 @@ function applySiteContent(content) {
   setText("visit-title", "Find the bakery, check hours, and stop by early");
   setText("address-line-1", content.business.addressLine1);
   setText("address-line-2", content.business.addressLine2);
-  setLink("phone-link", `tel:${content.business.phoneLink}`, content.business.phoneDisplay);
-  setText("phone-help-text", "Tap to call for bakery questions or quick directions.");
+  setLink(
+    "phone-link",
+    `tel:${content.business.phoneLink}`,
+    content.business.phoneDisplay
+  );
+  setText(
+    "phone-help-text",
+    "Tap to call for bakery questions or quick directions."
+  );
   setText("hours-display", content.business.hoursDisplay);
   setText("hours-note", content.business.hoursNote);
 
@@ -511,12 +595,24 @@ function applySiteContent(content) {
 
   setText("instagram-title", content.social.title);
   setText("instagram-text", content.social.text);
-  setLink("instagram-link", content.business.instagramUrl, content.social.buttonText);
+  setLink(
+    "instagram-link",
+    content.business.instagramUrl,
+    content.social.buttonText
+  );
 
   setText("footer-brand", content.business.name);
   setText("footer-tagline", content.footer.tagline);
-  setLink("footer-phone", `tel:${content.business.phoneLink}`, content.business.phoneDisplay);
-  setText("footer-address", `${content.business.addressLine1}, ${content.business.addressLine2}`);
+  setText("footer-hours", formatHoursShort(content.business.hoursDisplay));
+  setHTML(
+    "footer-address",
+    `${content.business.addressLine1}<br>${content.business.addressLine2}`
+  );
+  setLink(
+    "footer-phone",
+    `tel:${content.business.phoneLink}`,
+    content.business.phoneDisplay
+  );
 
   if (yearElement) {
     yearElement.textContent = new Date().getFullYear();
@@ -540,4 +636,7 @@ async function loadSiteContent() {
   applySiteContent(data);
 }
 
+renderMarquee();
+updateOpenStatus();
+setInterval(updateOpenStatus, 60000);
 loadSiteContent();

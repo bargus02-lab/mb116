@@ -20,14 +20,12 @@
   "hero": {
     "eyebrow": "Santa Ana bakery and breakfast stop",
     "title": "Fresh pan dulce, breakfast burritos, and coffee every morning",
-    "text": "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites for busy mornings.",
+    "text": "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites.",
     "highlights": [
       "Fresh pastries daily",
       "Known for breakfast burritos",
-      "Easy pickup on MacArthur"
-    ],
-    "badgeTitle": "Warm mornings start here",
-    "badgeText": "Fresh coffee, warm pastries, and a welcoming stop to start the day right."
+      "Open 5 AM – 1 PM"
+    ]
   },
   "about": {
     "title": "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -38,6 +36,11 @@
   },
   "favorites": [
     {
+      "badge": "Local standout",
+      "title": "Breakfast burritos",
+      "text": "A go-to for regulars looking for a filling breakfast that is quick, hot, and easy to grab."
+    },
+    {
       "badge": "Sweet bread",
       "title": "Conchas",
       "text": "Soft, fluffy, and fresh for the morning pastry run or an afternoon treat."
@@ -45,12 +48,7 @@
     {
       "badge": "Bakery classic",
       "title": "Pan dulce",
-      "text": "A colorful pastry case with classic Mexican bakery favorites and familiar daily staples."
-    },
-    {
-      "badge": "Local standout",
-      "title": "Breakfast burritos",
-      "text": "A go-to order for regulars looking for a filling breakfast that is quick, hot, and easy to grab."
+      "text": "A colorful pastry case with classic Mexican bakery favorites and daily staples."
     },
     {
       "badge": "Morning essential",
@@ -59,12 +57,12 @@
     }
   ],
   "social": {
-    "title": "Follow along for fresh bakes and daily bakery updates",
+    "title": "Follow along for daily pastry and bakery updates",
     "text": "See what is coming out of the pastry case, keep up with breakfast favorites, and follow the bakery on Instagram.",
     "buttonText": "Follow @millbakery.oc"
   },
   "footer": {
-    "tagline": "Mexican pastries, breakfast burritos, coffee, and pan dulce."
+    "tagline": "Mexican pastries, breakfast burritos, coffee, and pan dulce — Santa Ana."
   },
   "gallery": {
     "title": "A quick look inside Mill Bakery",

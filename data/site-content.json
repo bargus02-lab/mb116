@@ -65,23 +65,38 @@
     "tagline": "Mexican pastries, breakfast burritos, coffee, and pan dulce — Santa Ana."
   },
   "gallery": {
-    "title": "A quick look inside Mill Bakery",
-    "text": "Fresh pastries, the front counter, and a breakfast favorite from inside the bakery.",
+    "title": "A quick look at what we serve",
+    "text": "Fresh from the case and off the griddle — pastries, burritos, smoothies, and juice.",
     "items": [
       {
-        "title": "Pastry Case",
-        "text": "Donuts, conchas, and pan dulce lined up fresh in the bakery case.",
-        "image": "assets/gallery/pastry-case.jpg"
+        "title": "Chorizo Breakfast Burrito",
+        "text": "Chorizo, eggs, pinto beans, and jack cheese with hot salsa on the side.",
+        "image": "assets/gallery/burrito-chorizo.jpg"
+      },
+      {
+        "title": "Ham & Eggs Burrito",
+        "text": "Ham, eggs, pinto beans, and jack cheese — a regular's morning favorite.",
+        "image": "assets/gallery/burrito-ham-eggs.jpg"
+      },
+      {
+        "title": "Pan Dulce",
+        "text": "Sugared sweet bread baked fresh — a classic alongside coffee.",
+        "image": "assets/gallery/pan-dulce.jpg"
+      },
+      {
+        "title": "Strawberry Smoothie",
+        "text": "Fresh strawberries blended cold — a sweet pick from the licuados menu.",
+        "image": "assets/gallery/smoothie-strawberry.jpg"
+      },
+      {
+        "title": "Fresh Orange Juice",
+        "text": "Cold-pressed orange juice, served fresh.",
+        "image": "assets/gallery/juice-orange.jpg"
       },
       {
         "title": "Inside the Bakery",
         "text": "The front counter, menu boards, and pastry trays waiting for the morning rush.",
         "image": "assets/gallery/storefront-counter.jpg"
-      },
-      {
-        "title": "Breakfast Burrito",
-        "text": "One of the warm breakfast favorites that regulars come back for.",
-        "image": "assets/gallery/breakfast-burrito.jpg"
       }
     ]
   },

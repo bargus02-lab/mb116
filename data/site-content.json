@@ -20,12 +20,7 @@
   "hero": {
     "eyebrow": "Santa Ana bakery and breakfast stop",
     "title": "Fresh pan dulce, breakfast burritos, and coffee every morning",
-    "text": "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites.",
-    "highlights": [
-      "Fresh pastries daily",
-      "Known for breakfast burritos",
-      "Open 5 AM – 1 PM"
-    ]
+    "text": "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites."
   },
   "about": {
     "title": "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -66,7 +61,7 @@
   },
   "gallery": {
     "title": "A quick look at what we serve",
-    "text": "Fresh from the case and off the griddle — pastries, burritos, smoothies, and juice.",
+    "text": "Fresh from the case and off the griddle — pastries, burritos, and a peek inside the bakery.",
     "items": [
       {
         "title": "Chorizo Breakfast Burrito",
@@ -74,24 +69,9 @@
         "image": "assets/gallery/burrito-chorizo.jpg"
       },
       {
-        "title": "Ham & Eggs Burrito",
-        "text": "Ham, eggs, pinto beans, and jack cheese — a regular's morning favorite.",
-        "image": "assets/gallery/burrito-ham-eggs.jpg"
-      },
-      {
         "title": "Pan Dulce",
         "text": "Sugared sweet bread baked fresh — a classic alongside coffee.",
         "image": "assets/gallery/pan-dulce.jpg"
-      },
-      {
-        "title": "Strawberry Smoothie",
-        "text": "Fresh strawberries blended cold — a sweet pick from the licuados menu.",
-        "image": "assets/gallery/smoothie-strawberry.jpg"
-      },
-      {
-        "title": "Fresh Orange Juice",
-        "text": "Cold-pressed orange juice, served fresh.",
-        "image": "assets/gallery/juice-orange.jpg"
       },
       {
         "title": "Inside the Bakery",

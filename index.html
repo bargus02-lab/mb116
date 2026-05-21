@@ -33,7 +33,17 @@
           </span>
           <span id="brand-name">Mill Bakery</span>
         </a>
-        <nav class="nav-links" aria-label="Primary navigation">
+        <button
+          class="nav-toggle"
+          id="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-nav"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle-icon" aria-hidden="true"></span>
+        </button>
+        <nav class="nav-links" id="primary-nav" aria-label="Primary navigation">
           <a href="#about">About</a>
           <a href="#favorites">Favorites</a>
           <a href="#menu">Menu</a>
@@ -78,27 +88,23 @@
                 >
                 <a class="button button-glass" href="#menu">View Menu</a>
               </div>
-              <ul
-                id="hero-highlights"
-                class="hero-pills"
-                aria-label="Bakery highlights"
-              ></ul>
             </div>
           </div>
 
           <aside class="hero-aside">
             <div class="visit-card card-shell">
-              <div
-                class="status-badge"
-                id="status-badge"
-                role="status"
-                aria-live="polite"
-                hidden
-              >
-                <span class="status-dot"></span>
-                <span class="status-text"></span>
+              <div class="visit-card-head">
+                <p id="hero-badge-label" class="eyebrow">Plan your visit</p>
+                <div
+                  class="status-badge"
+                  id="status-badge"
+                  role="status"
+                  aria-live="polite"
+                >
+                  <span class="status-dot"></span>
+                  <span class="status-text"></span>
+                </div>
               </div>
-              <p id="hero-badge-label" class="eyebrow">Plan your visit</p>
               <h2 id="hero-badge-title" class="visit-card-title">
                 Stop by early — mornings go fast
               </h2>
@@ -155,7 +161,7 @@
       </section>
 
       <section class="section section-soft" id="about">
-        <div class="container about-grid">
+        <div class="container about-grid reveal-stagger">
           <div class="about-photo-card card-shell">
             <img
               class="about-photo-img"
@@ -211,7 +217,7 @@
             >
           </div>
 
-          <div id="favorites-grid" class="card-grid"></div>
+          <div id="favorites-grid" class="card-grid reveal-stagger"></div>
         </div>
       </section>
 
@@ -224,7 +230,7 @@
               Fresh pastry trays, coffee, and the bakery counter all in one place.
             </p>
           </div>
-          <div id="gallery-grid" class="image-grid"></div>
+          <div id="gallery-grid" class="image-grid reveal-stagger"></div>
         </div>
       </section>
 
@@ -244,7 +250,7 @@
       </section>
 
       <section class="section section-soft" id="visit">
-        <div class="container visit-grid">
+        <div class="container visit-grid reveal-stagger">
           <div class="visit-copy">
             <p class="eyebrow">Visit Mill Bakery</p>
             <h2 id="visit-title">
@@ -299,7 +305,7 @@
         </div>
       </section>
 
-      <section class="ig-strip" id="instagram">
+      <section class="ig-strip reveal" id="instagram">
         <div class="container ig-strip-inner">
           <div>
             <p class="eyebrow">On Instagram</p>

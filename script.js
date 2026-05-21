@@ -1,5 +1,5 @@
 const yearElement = document.getElementById("year");
-let activeMenuCategory = "all";
+let activeMenuCategory = null;
 
 const TICKER = [
   "Pan dulce",
@@ -47,11 +47,6 @@ const defaultContent = {
     title: "Fresh pan dulce, breakfast burritos, and coffee every morning",
     text:
       "A neighborhood bakery on MacArthur serving Mexican pastries, conchas, burritos, coffee, and quick breakfast favorites.",
-    highlights: [
-      "Fresh pastries daily",
-      "Known for breakfast burritos",
-      "Open 5 AM – 1 PM",
-    ],
   },
   about: {
     title: "A local Santa Ana spot for pastries, coffee, and breakfast",
@@ -254,22 +249,6 @@ function setLink(id, href, text) {
   }
 }
 
-function renderHighlights(items) {
-  const list = document.getElementById("hero-highlights");
-
-  if (!list) {
-    return;
-  }
-
-  list.innerHTML = "";
-
-  for (const item of items) {
-    const li = document.createElement("li");
-    li.textContent = item;
-    list.appendChild(li);
-  }
-}
-
 function renderMarquee() {
   const track = document.getElementById("marquee-track");
 
@@ -316,7 +295,6 @@ function updateOpenStatus() {
   const closingSoon = isOpen && t >= HOURS.closeMin - HOURS.closingWarnMin;
 
   badge.classList.remove("is-open", "is-closing-soon", "is-closed");
-  badge.removeAttribute("hidden");
 
   const text = badge.querySelector(".status-text");
 
@@ -411,43 +389,34 @@ function renderMenuCategories(categories) {
   }
 
   const categoryTitles = categories.map((category) => category.title);
-  if (
-    activeMenuCategory !== "all" &&
-    !categoryTitles.includes(activeMenuCategory)
-  ) {
-    activeMenuCategory = "all";
+  if (!activeMenuCategory || !categoryTitles.includes(activeMenuCategory)) {
+    activeMenuCategory = categories[0]?.title ?? null;
   }
 
   if (tabs) {
-    const tabItems = [
-      { label: "All", value: "all" },
-      ...categories.map((category) => ({
-        label: category.title,
-        value: category.title,
-      })),
-    ];
-
     tabs.innerHTML = "";
 
-    for (const tab of tabItems) {
+    for (const category of categories) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = `menu-tab${
-        tab.value === activeMenuCategory ? " is-active" : ""
+        category.title === activeMenuCategory ? " is-active" : ""
       }`;
-      button.textContent = tab.label;
+      button.textContent = category.title;
       button.addEventListener("click", () => {
-        activeMenuCategory = tab.value;
+        activeMenuCategory = category.title;
         renderMenuCategories(categories);
+        document
+          .getElementById("menu")
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
       tabs.appendChild(button);
     }
   }
 
-  const visibleCategories =
-    activeMenuCategory === "all"
-      ? categories
-      : categories.filter((category) => category.title === activeMenuCategory);
+  const visibleCategories = categories.filter(
+    (category) => category.title === activeMenuCategory
+  );
 
   grid.innerHTML = "";
 
@@ -545,7 +514,6 @@ function applySiteContent(content) {
   setText("hero-eyebrow", content.hero.eyebrow);
   setText("hero-title", content.hero.title);
   setText("hero-text", content.hero.text);
-  renderHighlights(content.hero.highlights);
 
   setText(
     "hero-stat-address",
@@ -634,9 +602,59 @@ async function loadSiteContent() {
   }
 
   applySiteContent(data);
+  return data;
+}
+
+function bindScrollReveal() {
+  if (typeof IntersectionObserver === "undefined") {
+    document
+      .querySelectorAll(".reveal, .reveal-stagger")
+      .forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { rootMargin: "0px 0px -10% 0px", threshold: 0.08 }
+  );
+
+  document
+    .querySelectorAll(".reveal, .reveal-stagger")
+    .forEach((el) => observer.observe(el));
+}
+
+function bindNavToggle() {
+  const toggle = document.getElementById("nav-toggle");
+  const links = document.getElementById("primary-nav");
+
+  if (!toggle || !links) {
+    return;
+  }
+
+  toggle.addEventListener("click", () => {
+    const open = links.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+  });
+
+  links.querySelectorAll("a").forEach((a) => {
+    a.addEventListener("click", () => {
+      links.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Open menu");
+    });
+  });
 }
 
 renderMarquee();
 updateOpenStatus();
 setInterval(updateOpenStatus, 60000);
-loadSiteContent();
+bindNavToggle();
+loadSiteContent().then(bindScrollReveal);

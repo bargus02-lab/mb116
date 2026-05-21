@@ -33,10 +33,29 @@ body {
   font-family: "Work Sans", sans-serif;
   color: var(--text);
   overflow-x: hidden;
+  position: relative;
   background:
     radial-gradient(ellipse 60% 40% at 0% 0%, rgba(228, 171, 36, 0.18) 0%, transparent 60%),
     radial-gradient(ellipse 50% 35% at 100% 0%, rgba(182, 55, 46, 0.1) 0%, transparent 55%),
     linear-gradient(170deg, #fffaf3 0%, #f8f2e6 45%, #f2e5cf 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18 0 0 0 0 0.13 0 0 0 0 0.08 0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 220px 220px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    opacity: 0.04;
+  }
 }
 
 a {
@@ -217,7 +236,7 @@ iframe {
 .marquee-track {
   display: flex;
   width: max-content;
-  animation: marquee 28s linear infinite;
+  animation: marquee 52s linear infinite;
 }
 
 .marquee-track span {
@@ -241,7 +260,7 @@ iframe {
 
 @media (max-width: 720px) {
   .marquee-track {
-    animation-duration: 38s;
+    animation-duration: 64s;
   }
 }
 
@@ -255,10 +274,10 @@ iframe {
 
 .reveal {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(28px);
   transition:
-    opacity 520ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
   will-change: opacity, transform;
 }
 
@@ -269,29 +288,29 @@ iframe {
 
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(28px);
   transition:
-    opacity 520ms cubic-bezier(0.22, 0.61, 0.36, 1),
-    transform 520ms cubic-bezier(0.22, 0.61, 0.36, 1);
+    opacity 900ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 900ms cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 .reveal-stagger.is-visible > *:nth-child(1) {
   transition-delay: 0ms;
 }
 .reveal-stagger.is-visible > *:nth-child(2) {
-  transition-delay: 80ms;
+  transition-delay: 140ms;
 }
 .reveal-stagger.is-visible > *:nth-child(3) {
-  transition-delay: 160ms;
+  transition-delay: 280ms;
 }
 .reveal-stagger.is-visible > *:nth-child(4) {
-  transition-delay: 240ms;
+  transition-delay: 420ms;
 }
 .reveal-stagger.is-visible > *:nth-child(5) {
-  transition-delay: 320ms;
+  transition-delay: 560ms;
 }
 .reveal-stagger.is-visible > *:nth-child(6) {
-  transition-delay: 400ms;
+  transition-delay: 700ms;
 }
 
 .reveal-stagger.is-visible > * {
@@ -473,42 +492,68 @@ h3 {
 
 .hero-photo {
   position: relative;
-  min-height: 520px;
+  min-height: 580px;
   box-shadow: var(--shadow-lg);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
+@media (min-width: 960px) {
+  .hero-photo {
+    min-height: 680px;
+  }
+}
+
 .hero-photo-img {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  inset: -4%;
+  width: 108%;
+  height: 108%;
   object-fit: cover;
   object-position: center 30%;
   z-index: 0;
+  filter: saturate(1.08) contrast(1.06) brightness(0.94);
+  transform-origin: center;
+  animation: ken-burns 22s ease-in-out infinite alternate;
+}
+
+@keyframes ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-img {
+    animation: none;
+  }
 }
 
 .hero-photo-overlay {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(
-    160deg,
-    rgba(45, 18, 8, 0.72) 0%,
-    rgba(60, 25, 12, 0.55) 50%,
-    rgba(80, 35, 15, 0.28) 100%
-  );
+  background:
+    radial-gradient(ellipse 130% 95% at 50% 40%, transparent 35%, rgba(20, 7, 0, 0.55) 92%),
+    linear-gradient(
+      170deg,
+      rgba(35, 12, 4, 0.55) 0%,
+      rgba(45, 18, 8, 0.45) 45%,
+      rgba(70, 28, 12, 0.85) 100%
+    );
 }
 
 .hero-photo-glow {
   position: absolute;
   top: -60px;
   right: -60px;
-  width: 280px;
-  height: 280px;
+  width: 320px;
+  height: 320px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(228, 171, 36, 0.2), transparent 65%);
+  background: radial-gradient(circle, rgba(228, 171, 36, 0.24), transparent 65%);
   z-index: 2;
   pointer-events: none;
 }
@@ -520,7 +565,40 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  min-height: 520px;
+  min-height: 580px;
+}
+
+@media (min-width: 960px) {
+  .hero-photo-content {
+    min-height: 680px;
+    padding: 3rem;
+  }
+}
+
+.hero-photo-content > * {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-rise 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+.hero-photo-content > *:nth-child(1) { animation-delay: 200ms; }
+.hero-photo-content > *:nth-child(2) { animation-delay: 360ms; }
+.hero-photo-content > *:nth-child(3) { animation-delay: 520ms; }
+.hero-photo-content > *:nth-child(4) { animation-delay: 680ms; }
+
+@keyframes hero-rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo-content > * {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 .hero-photo-content h1 {
@@ -708,6 +786,7 @@ h3 {
   object-fit: cover;
   object-position: 65% 40%;
   display: block;
+  filter: saturate(1.06) contrast(1.04) brightness(0.96);
 }
 
 .burrito-overlay {
@@ -771,6 +850,7 @@ h3 {
   aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
+  filter: saturate(1.06) contrast(1.04) brightness(0.96);
 }
 
 .about-photo-badge {
@@ -941,12 +1021,13 @@ h3 {
 
 .image-card {
   margin: 0;
+  position: relative;
   overflow: hidden;
   border-radius: var(--radius-md);
   border: 1px solid var(--line);
-  background: rgba(255, 251, 245, 0.94);
+  background: #2a1208;
   box-shadow: var(--shadow);
-  transition: transform 200ms ease, box-shadow 200ms ease;
+  transition: transform 260ms cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 260ms ease;
 }
 
 .image-card:hover {
@@ -966,32 +1047,80 @@ h3 {
 .image-card img {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
-  transition: transform 400ms ease;
+  transition: transform 1200ms cubic-bezier(0.22, 0.61, 0.36, 1);
   background: linear-gradient(180deg, rgba(228, 171, 36, 0.16), rgba(182, 55, 46, 0.08));
+  filter: saturate(1.06) contrast(1.05) brightness(0.95);
 }
 
 .image-card:hover img {
-  transform: scale(1.04);
+  transform: scale(1.07);
+}
+
+@media (min-width: 720px) {
+  .image-card img {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.image-card-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+}
+
+.image-card-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(20, 8, 2, 0.55) 100%);
+  opacity: 0.85;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .image-card figcaption {
-  padding: 1.1rem 1.3rem 1.3rem;
-  background: rgba(255, 251, 245, 0.97);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1rem 1.3rem 1.2rem;
+  background: transparent;
+  color: #fff7ef;
+  z-index: 2;
+  transform: translateY(8px);
+  opacity: 0.92;
+  transition: transform 420ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 420ms ease;
+}
+
+.image-card:hover figcaption {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.image-card figcaption h3 {
+  color: #fff7ef;
+  font-size: 1.15rem;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.image-card figcaption p {
+  color: rgba(255, 247, 239, 0.82);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
 }
 
 .image-card h3 {
-  font-size: 1.15rem;
   margin-bottom: 0.4rem;
   line-height: 1.25;
 }
 
 .image-card p {
   margin: 0;
-  color: var(--muted);
-  font-size: 0.91rem;
-  line-height: 1.65;
+  line-height: 1.55;
 }
 
 .image-card.is-empty img {

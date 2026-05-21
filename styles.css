@@ -199,10 +199,12 @@ iframe {
   gap: 0.65rem;
   font-family: "Bree Serif", serif;
   font-size: 1.75rem;
-  font-weight: 700;
+  font-weight: 900;
   letter-spacing: 0.005em;
   color: var(--red);
   line-height: 1;
+  -webkit-text-stroke: 0.035em currentColor;
+  paint-order: stroke fill;
 }
 
 @media (min-width: 720px) {

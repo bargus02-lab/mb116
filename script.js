@@ -40,7 +40,7 @@ const defaultContent = {
     instagramUrl: "https://www.instagram.com/millbakery.oc/",
     hoursDisplay: "Daily: 5:00 AM - 1:00 PM",
     hoursNote: "Hours based on current public listings and may change.",
-    logo: "assets/logo-windmill-2026.png",
+    logo: "assets/logo-mill-bakery-lockup-2026.png",
   },
   hero: {
     eyebrow: "Santa Ana bakery and breakfast stop",

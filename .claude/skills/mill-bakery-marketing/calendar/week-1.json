@@ -1,0 +1,66 @@
+[
+  {
+    "template": "hours",
+    "headline": "Open 5 AM",
+    "subtitle": "Daily · 116 W MacArthur Blvd · Santa Ana",
+    "bg": "red",
+    "slug": "open-5am",
+    "caption": "we're open. 5 am to 1 pm, every day. stop in early — pan dulce trays don't last past 10. ☀️",
+    "hashtags": ["santaana", "santaanafood", "panaderia", "supportlocal", "pandulce"]
+  },
+  {
+    "template": "menu",
+    "eyebrow": "Fresh today",
+    "headline": "Chorizo Burrito",
+    "description": "Chorizo, eggs, pinto beans, and jack cheese. With hot salsa on the side.",
+    "price": "$10.50",
+    "slug": "chorizo-burrito",
+    "caption": "chorizo & eggs, beans, jack cheese, hot salsa on the side. coffee pairs well. open until 1.",
+    "hashtags": ["santaana", "breakfastburrito", "santaanafood", "ocfoodie", "mexicanbreakfast"]
+  },
+  {
+    "template": "personality",
+    "headline": "Santa Ana's morning spot.",
+    "attribution": "Mill Bakery · Open daily 5 am",
+    "slug": "morning-spot",
+    "caption": "the usual? coming up. ☕ 116 w macarthur · open daily 5 am.",
+    "hashtags": ["santaana", "downtownsantaana", "ocfoodie", "supportlocal", "panaderia"]
+  },
+  {
+    "template": "photo",
+    "photo": "pan-dulce.jpg",
+    "eyebrow": "From the case",
+    "headline": "Pan dulce, baked before dawn",
+    "slug": "pan-dulce-case",
+    "caption": "pan dulce comes out before dawn. catch them warm. open daily 5–1.",
+    "hashtags": ["pandulce", "panaderia", "santaana", "mexicanbakery", "conchas"]
+  },
+  {
+    "template": "process",
+    "eyebrow": "Made this morning",
+    "headline": "Still warm",
+    "footer": "Open 5 AM · Daily",
+    "slug": "still-warm",
+    "caption": "conchas, pan dulce, all the regulars. warm if you come early. 5 am · daily.",
+    "hashtags": ["santaana", "pandulce", "mexicanbakery", "supportlocal", "panaderia"]
+  },
+  {
+    "template": "menu",
+    "eyebrow": "From the licuados menu",
+    "headline": "Strawberry Smoothie",
+    "description": "Fresh strawberries, ice, blended cold. From the licuados side of the menu.",
+    "price": "$7.50",
+    "slug": "strawberry-smoothie",
+    "caption": "fresh strawberries, blended cold. sweet pick from the licuados menu. open 5–1.",
+    "hashtags": ["santaana", "licuados", "smoothie", "ocfoodie", "santaanafood"]
+  },
+  {
+    "template": "photo",
+    "photo": "storefront-counter.jpg",
+    "eyebrow": "Inside",
+    "headline": "Stop in. We're up early.",
+    "slug": "storefront-counter",
+    "caption": "front counter, fresh trays, open early. ☀️ 116 w macarthur · santa ana.",
+    "hashtags": ["santaana", "downtownsantaana", "ocfoodie", "supportlocal", "panaderia"]
+  }
+]

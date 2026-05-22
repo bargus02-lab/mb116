@@ -135,15 +135,124 @@ def paste_watermark(canvas: Image.Image, *, scale: float = 0.10, opacity: int = 
     canvas.alpha_composite(mark, dest=(60, SIZE[1] - mark.size[1] - 60))
 
 
-def paste_corner_mark(canvas: Image.Image, *, scale: float = 0.12) -> None:
-    """Paste the windmill mark fully opaque in the top-right corner."""
+def _recolor_mark(target_rgb: tuple[int, int, int]) -> Image.Image:
+    """Return the windmill mark recolored to target_rgb (preserving alpha)."""
+    mark = Image.open(MARK_PATH).convert("RGBA")
+    alpha = mark.split()[3]
+    color = Image.new("RGB", mark.size, target_rgb)
+    return Image.merge("RGBA", (*color.split(), alpha))
+
+
+def paste_brand_stamp(
+    canvas: Image.Image,
+    *,
+    position: str | tuple[int, int] = "top-right",
+    variant: str = "pill",
+) -> None:
+    """
+    Composite a Mill Bakery brand stamp onto the canvas.
+
+    variants:
+      - "pill"          cream rounded pill, windmill + red wordmark.
+                        Use on photo backgrounds and cream backgrounds.
+      - "outlined_pill" same as pill plus a gold border. Use on cream backgrounds
+                        when the stamp needs more visual separation.
+      - "icon_only"     just the windmill mark recolored cream/gold, no pill.
+                        Use on red backgrounds.
+    """
     if not MARK_PATH.exists():
         return
+
+    margin = 50
+
+    if variant == "icon_only":
+        mark = _recolor_mark((244, 211, 109))  # gold soft
+        target_w = 96
+        ratio = target_w / mark.size[0]
+        mark = mark.resize((target_w, int(mark.size[1] * ratio)), Image.LANCZOS)
+        if position == "top-right":
+            dest = (SIZE[0] - mark.size[0] - margin, margin)
+        elif position == "top-left":
+            dest = (margin, margin)
+        elif position == "bottom-right":
+            dest = (SIZE[0] - mark.size[0] - margin, SIZE[1] - mark.size[1] - margin)
+        elif position == "bottom-left":
+            dest = (margin, SIZE[1] - mark.size[1] - margin)
+        else:
+            dest = position  # tuple
+        canvas.alpha_composite(mark, dest=dest)
+        return
+
+    # Pill variants
     mark = Image.open(MARK_PATH).convert("RGBA")
-    target_w = int(SIZE[0] * scale)
-    ratio = target_w / mark.size[0]
-    mark = mark.resize((target_w, int(mark.size[1] * ratio)), Image.LANCZOS)
-    canvas.alpha_composite(mark, dest=(SIZE[0] - mark.size[0] - 60, 60))
+    mark_h = 56
+    ratio = mark_h / mark.size[1]
+    mark = mark.resize((max(1, int(mark.size[0] * ratio)), mark_h), Image.LANCZOS)
+
+    text = "MILL BAKERY"
+    text_font = _font("serif", 28)
+
+    temp_draw = ImageDraw.Draw(Image.new("RGBA", (1, 1)))
+    text_w = int(temp_draw.textlength(text, font=text_font))
+
+    pad_h = 22
+    pad_v = 14
+    gap = 12
+    stamp_w = pad_h + mark.size[0] + gap + text_w + pad_h
+    stamp_h = pad_v * 2 + max(mark.size[1], 32)
+
+    stamp = Image.new("RGBA", (stamp_w, stamp_h), (0, 0, 0, 0))
+    sd = ImageDraw.Draw(stamp)
+    pill_bg = (255, 252, 245, 240)
+    radius = stamp_h // 2
+    if variant == "outlined_pill":
+        sd.rounded_rectangle(
+            [(0, 0), (stamp_w, stamp_h)],
+            radius=radius,
+            fill=pill_bg,
+            outline=(228, 171, 36, 220),
+            width=2,
+        )
+    else:
+        sd.rounded_rectangle(
+            [(0, 0), (stamp_w, stamp_h)],
+            radius=radius,
+            fill=pill_bg,
+        )
+
+    mark_y = (stamp_h - mark.size[1]) // 2
+    stamp.paste(mark, (pad_h, mark_y), mark)
+
+    # Wordmark — use a small stroke to emulate the chunky Cooper-like feel
+    text_color = (141, 36, 31)  # red deep
+    ascent, descent = text_font.getmetrics()
+    text_y = (stamp_h - (ascent + descent)) // 2 - 2
+    sd.text(
+        (pad_h + mark.size[0] + gap, text_y),
+        text,
+        font=text_font,
+        fill=text_color,
+        stroke_width=2,
+        stroke_fill=text_color,
+    )
+
+    if position == "top-right":
+        dest = (SIZE[0] - stamp_w - margin, margin)
+    elif position == "top-left":
+        dest = (margin, margin)
+    elif position == "bottom-right":
+        dest = (SIZE[0] - stamp_w - margin, SIZE[1] - stamp_h - margin)
+    elif position == "bottom-left":
+        dest = (margin, SIZE[1] - stamp_h - margin)
+    else:
+        dest = position  # tuple
+
+    canvas.alpha_composite(stamp, dest=dest)
+
+
+def paste_corner_mark(canvas: Image.Image, *, scale: float = 0.12) -> None:
+    """Legacy helper — now routes to the unified brand stamp."""
+    paste_brand_stamp(canvas, position="top-right", variant="pill")
 
 
 def draw_eyebrow(draw: ImageDraw.ImageDraw, text: str, xy: tuple[int, int], color: tuple) -> None:
@@ -198,7 +307,7 @@ def render_menu_spotlight(post: dict, out: Path) -> None:
     draw.text((90, SIZE[1] - 80), "DAILY 5 AM – 1 PM  ·  116 W MACARTHUR  ·  @MILLBAKERY.OC",
               font=footer_font, fill=COLORS["muted"])
 
-    paste_corner_mark(canvas)
+    paste_brand_stamp(canvas, position="top-right", variant="outlined_pill")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -232,7 +341,7 @@ def render_hours_card(post: dict, out: Path) -> None:
         sub_w = draw.textlength(sub, font=sub_font)
         draw.text(((SIZE[0] - sub_w) / 2, y + text_h + 60), sub, font=sub_font, fill=fg)
 
-    paste_watermark(canvas, opacity=80)
+    paste_brand_stamp(canvas, position="top-right", variant="icon_only")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -262,7 +371,7 @@ def render_personality_quote(post: dict, out: Path) -> None:
         draw.text((90, end_y + 110), post["attribution"].upper(),
                   font=attr_font, fill=COLORS["muted"])
 
-    paste_watermark(canvas)
+    paste_brand_stamp(canvas, position="bottom-right", variant="outlined_pill")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -309,6 +418,48 @@ def _autofit_serif(draw: ImageDraw.ImageDraw, text: str, max_width: int,
     return _font("serif", min_size)
 
 
+def _wrap_lines_count(draw: ImageDraw.ImageDraw, text: str,
+                     font: ImageFont.FreeTypeFont, max_width: int) -> int:
+    """Return the number of lines the text will wrap to at max_width."""
+    words = text.split()
+    if not words:
+        return 0
+    lines = 0
+    current_w = draw.textlength(words[0], font=font)
+    for w in words[1:]:
+        trial = draw.textlength(" " + w, font=font)
+        if current_w + trial <= max_width:
+            current_w += trial
+        else:
+            lines += 1
+            current_w = draw.textlength(w, font=font)
+    lines += 1
+    return lines
+
+
+def _autofit_serif_to_box(draw: ImageDraw.ImageDraw, text: str,
+                         box_width: int, box_height: int,
+                         line_spacing: float = 1.0,
+                         start: int = 160, min_size: int = 56, step: int = 6
+                         ) -> ImageFont.FreeTypeFont:
+    """Pick the largest serif size where the wrapped text fits in BOTH width and height."""
+    text_upper = text.upper() if isinstance(text, str) else text
+    size = start
+    while size > min_size:
+        font = _font("serif", size)
+        # Check longest word fits horizontally
+        longest = max(text_upper.split(), key=len, default=text_upper)
+        if draw.textlength(longest, font=font) <= box_width:
+            # Count lines + check vertical
+            lines = _wrap_lines_count(draw, text_upper, font, box_width)
+            asc, desc = font.getmetrics()
+            total_h = int((asc + desc) * line_spacing) * lines
+            if total_h <= box_height:
+                return font
+        size -= step
+    return _font("serif", min_size)
+
+
 def render_photo_post(post: dict, out: Path) -> None:
     """Full-bleed photo with bottom gradient + caption."""
     canvas = _load_photo_covered(post["photo"])
@@ -316,19 +467,24 @@ def render_photo_post(post: dict, out: Path) -> None:
 
     draw = ImageDraw.Draw(canvas)
 
-    # Mono "01" / eyebrow
+    # Mono "01" / eyebrow — sits 60px above headline box
     eye = post.get("eyebrow", "From the case")
-    draw_eyebrow(draw, eye, (90, 1050), COLORS["gold_soft"])
+    draw_eyebrow(draw, eye, (90, 1000), COLORS["gold_soft"])
 
-    # Big headline — auto-fit so longer copy doesn't overflow the canvas
+    # Big headline — auto-fit so wrapped lines fit BOTH width and height
     headline = post["headline"].upper() if post.get("uppercase", True) else post["headline"]
-    h_font = _autofit_serif(draw, headline, max_width=900, start=140, min_size=64, step=8)
+    box_top, box_bottom = 1050, 1320
+    h_font = _autofit_serif_to_box(
+        draw, headline,
+        box_width=900, box_height=box_bottom - box_top,
+        line_spacing=0.98, start=130, min_size=58, step=6,
+    )
     draw_text_wrapped(
-        draw, headline, (90, 1090, 990, 1320),
-        h_font, COLORS["cream_off"], line_spacing=1.0, stroke_width=2,
+        draw, headline, (90, box_top, 990, box_bottom),
+        h_font, COLORS["cream_off"], line_spacing=0.98, stroke_width=2,
     )
 
-    paste_corner_mark(canvas, scale=0.10)
+    paste_brand_stamp(canvas, position="top-right", variant="pill")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -350,14 +506,19 @@ def render_menu_photo(post: dict, out: Path) -> None:
 
     draw = ImageDraw.Draw(canvas)
 
-    # Top eyebrow
-    draw_eyebrow(draw, post.get("eyebrow", "Fresh today"), (90, 110), COLORS["gold_soft"])
+    # Top eyebrow — leave room above for the brand stamp
+    draw_eyebrow(draw, post.get("eyebrow", "Fresh today"), (90, 240), COLORS["gold_soft"])
 
-    # Big headline (auto-fit so long words don't overflow)
+    # Big headline (auto-fit width + height so wrapped lines stay in their box)
     headline = post["headline"].upper()
-    h_font = _autofit_serif(draw, headline, max_width=900, start=200, min_size=110, step=10)
+    box_top, box_bottom = 320, 820
+    h_font = _autofit_serif_to_box(
+        draw, headline,
+        box_width=900, box_height=box_bottom - box_top,
+        line_spacing=0.95, start=200, min_size=100, step=8,
+    )
     draw_text_wrapped(
-        draw, headline, (90, 230, 990, 760),
+        draw, headline, (90, box_top, 990, box_bottom),
         h_font, COLORS["cream_off"], line_spacing=0.95, stroke_width=2,
     )
 
@@ -423,7 +584,7 @@ def render_process_typographic(post: dict, out: Path) -> None:
     foot_w = draw.textlength(foot, font=foot_font)
     draw.text(((SIZE[0] - foot_w) / 2, SIZE[1] - 100), foot, font=foot_font, fill=COLORS["muted"])
 
-    paste_watermark(canvas, scale=0.08, opacity=50)
+    paste_brand_stamp(canvas, position="top-right", variant="outlined_pill")
     canvas.save(out, "PNG", optimize=True)
 
 

@@ -29,12 +29,13 @@ Quick reference for posts. The site itself (`styles.css`) is the source of truth
 ## Voice
 
 - **Tone**: warm, simple, local — a neighborhood bakery, not corporate
+- **Capitalization**: normal grammar. Proper case, sentence-first capitalization, real punctuation. (We tried all-lowercase earlier; it felt stylized in a way that wasn't on-brand. Don't do that.)
 - **POV**: first-person plural ("we", "our") or no subject ("Open daily 5 AM")
 - **Length**: short. 1–3 sentences for captions. Headlines 2–6 words.
 - **No corporate phrases**: avoid "delicious", "experience", "passionate", "artisanal", "curated"
 - **Yes**: "fresh", "warm", "stop in", "from the case", "made this morning", "the usual"
-- **Emojis**: max 1 per caption. Acceptable: 🍞 ☕ 🥐 🌅 (sunrise for morning posts). Don't use ❤️ or 🔥.
-- **Hashtags**: 3–6 per post. Mix local + topic:
+- **Emojis**: max 1 per caption. Acceptable: 🍞 ☕ 🥐 🌅 ☀️. Don't use ❤️ or 🔥.
+- **Hashtags**: see `hashtag-strategy.md` for the 2026 approach. Tiered mix.
   - Local: `#santaana`, `#santaanafood`, `#ocfoodie`, `#supportlocal`, `#downtownsantaana`
   - Topic: `#pandulce`, `#mexicanbakery`, `#breakfastburrito`, `#concha`, `#panaderia`
 

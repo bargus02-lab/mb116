@@ -40,55 +40,35 @@ COLORS = {
 
 SIZE = (1080, 1350)  # IG 4:5 portrait
 
-# -------- Font discovery --------
-# Brand fonts are bundled in skill/fonts/. We fall back to system fonts if any
-# of them go missing so the generator still runs.
-SKILL_DIR = Path(__file__).resolve().parent
-FONTS_DIR = SKILL_DIR / "fonts"
-
-
+# -------- Font discovery (uses macOS system fonts) --------
 def _first_existing(*paths: str) -> str | None:
     for p in paths:
-        if p and Path(p).exists():
-            return str(p)
+        if Path(p).exists():
+            return p
     return None
 
-
 FONT_SERIF = _first_existing(
-    FONTS_DIR / "BreeSerif-Regular.ttf",
     "/System/Library/Fonts/Supplemental/Georgia Bold.ttf",
     "/Library/Fonts/Georgia Bold.ttf",
     "/System/Library/Fonts/Supplemental/Georgia.ttf",
     "/System/Library/Fonts/Times.ttc",
 )
 FONT_SANS = _first_existing(
-    FONTS_DIR / "WorkSans-Regular.ttf",
     "/System/Library/Fonts/Helvetica.ttc",
     "/System/Library/Fonts/Supplemental/Arial.ttf",
 )
-FONT_SANS_BOLD = _first_existing(
-    FONTS_DIR / "WorkSans-Bold.ttf",
-    FONT_SANS,
-)
 FONT_MONO = _first_existing(
-    FONTS_DIR / "DMMono-Medium.ttf",
-    FONTS_DIR / "DMMono-Regular.ttf",
     "/System/Library/Fonts/Monaco.ttf",
     "/System/Library/Fonts/Menlo.ttc",
     "/System/Library/Fonts/Supplemental/Courier New Bold.ttf",
 )
 
 if not (FONT_SERIF and FONT_SANS and FONT_MONO):
-    raise SystemExit("Could not find required fonts.")
+    raise SystemExit("Could not find required system fonts. Install Georgia and Helvetica.")
 
 
 def _font(family: str, size: int) -> ImageFont.FreeTypeFont:
-    path = {
-        "serif": FONT_SERIF,
-        "sans": FONT_SANS,
-        "sans_bold": FONT_SANS_BOLD,
-        "mono": FONT_MONO,
-    }[family]
+    path = {"serif": FONT_SERIF, "sans": FONT_SANS, "mono": FONT_MONO}[family]
     return ImageFont.truetype(path, size)
 
 

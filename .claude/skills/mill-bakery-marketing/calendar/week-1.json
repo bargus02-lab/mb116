@@ -5,35 +5,44 @@
     "subtitle": "Daily · 116 W MacArthur Blvd · Santa Ana",
     "bg": "red",
     "slug": "open-5am",
-    "caption": "we're open. 5 am to 1 pm, every day. stop in early — pan dulce trays don't last past 10. ☀️",
-    "hashtags": ["santaana", "santaanafood", "panaderia", "supportlocal", "pandulce"]
+    "caption": "5 AM. every day. yes, even sunday.\n\nwe open before the rest of macarthur wakes up. pan dulce trays, fresh coffee, the usual.\n\nsee you at the counter ☀️",
+    "hashtags": ["panaderia", "mexicanbakery", "pandulce", "santaanafood", "BestFoodOC", "santaana", "downtownsantaana", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
   },
   {
-    "template": "menu",
+    "template": "menu_photo",
+    "photo": "burrito-chorizo.jpg",
     "eyebrow": "Fresh today",
     "headline": "Chorizo Burrito",
     "description": "Chorizo, eggs, pinto beans, and jack cheese. With hot salsa on the side.",
     "price": "$10.50",
     "slug": "chorizo-burrito",
-    "caption": "chorizo & eggs, beans, jack cheese, hot salsa on the side. coffee pairs well. open until 1.",
-    "hashtags": ["santaana", "breakfastburrito", "santaanafood", "ocfoodie", "mexicanbreakfast"]
+    "caption": "the chorizo burrito hasn't changed since day one — there's a reason.\n\nchorizo, eggs, pinto beans, jack cheese, hot salsa on the side. $10.50. foil-wrapped, ready to go.\n\norder it #4 at the counter.",
+    "hashtags": ["breakfastburrito", "chorizo", "mexicanbreakfast", "santaanafood", "BestFoodOC", "ocfoodie", "santaana", "millbakery"],
+    "tag_accounts": ["@bestfoodoc"],
+    "location": "Mill Bakery"
   },
   {
     "template": "personality",
     "headline": "Santa Ana's morning spot.",
     "attribution": "Mill Bakery · Open daily 5 am",
     "slug": "morning-spot",
-    "caption": "the usual? coming up. ☕ 116 w macarthur · open daily 5 am.",
-    "hashtags": ["santaana", "downtownsantaana", "ocfoodie", "supportlocal", "panaderia"]
+    "caption": "some people know us by 'the windmill place.' we'll take it.\n\n116 w macarthur. open since 5 am. the usual is always coming up ☕\n\nstop in this week — tell us your order in the comments.",
+    "hashtags": ["santaana", "downtownsantaana", "santaanafood", "ocfoodie", "BestFoodOC", "panaderia", "pandulce", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
   },
   {
     "template": "photo",
     "photo": "pan-dulce.jpg",
     "eyebrow": "From the case",
-    "headline": "Pan dulce, baked before dawn",
+    "headline": "Pan dulce, fresh.",
     "slug": "pan-dulce-case",
-    "caption": "pan dulce comes out before dawn. catch them warm. open daily 5–1.",
-    "hashtags": ["pandulce", "panaderia", "santaana", "mexicanbakery", "conchas"]
+    "caption": "pan dulce arrives before sunrise. most days they're gone by 10.\n\nconchas, orejas, polvorones — fresh from this morning's bake.\n\nsave this for your next coffee run.",
+    "hashtags": ["pandulce", "conchas", "panaderia", "mexicanbakery", "panaderiaartesanal", "santaanafood", "BestFoodOC", "santaana", "millbakery"],
+    "tag_accounts": ["@bestfoodoc"],
+    "location": "Mill Bakery"
   },
   {
     "template": "process",
@@ -41,26 +50,33 @@
     "headline": "Still warm",
     "footer": "Open 5 AM · Daily",
     "slug": "still-warm",
-    "caption": "conchas, pan dulce, all the regulars. warm if you come early. 5 am · daily.",
-    "hashtags": ["santaana", "pandulce", "mexicanbakery", "supportlocal", "panaderia"]
+    "caption": "if you come in by 7, they're still warm.\n\nthe whole tray, basically. conchas, pan dulce, the regulars.\n\nset the alarm — it's worth it.",
+    "hashtags": ["pandulce", "mexicanbakery", "panaderia", "santaanafood", "BestFoodOC", "santaana", "freshbaked", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
   },
   {
-    "template": "menu",
+    "template": "menu_photo",
+    "photo": "smoothie-strawberry.jpg",
     "eyebrow": "From the licuados menu",
     "headline": "Strawberry Smoothie",
     "description": "Fresh strawberries, ice, blended cold. From the licuados side of the menu.",
     "price": "$7.50",
     "slug": "strawberry-smoothie",
-    "caption": "fresh strawberries, blended cold. sweet pick from the licuados menu. open 5–1.",
-    "hashtags": ["santaana", "licuados", "smoothie", "ocfoodie", "santaanafood"]
+    "caption": "strawberry season is here — the licuados taste like it.\n\nreal strawberries, blended cold with ice. $7.50. side of pan dulce optional but encouraged.\n\npair it with the #4 burrito or just sip.",
+    "hashtags": ["licuados", "smoothie", "mexicanfood", "santaanafood", "BestFoodOC", "ocfoodie", "santaana", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
   },
   {
     "template": "photo",
     "photo": "storefront-counter.jpg",
     "eyebrow": "Inside",
-    "headline": "Stop in. We're up early.",
+    "headline": "Stop in early.",
     "slug": "storefront-counter",
-    "caption": "front counter, fresh trays, open early. ☀️ 116 w macarthur · santa ana.",
-    "hashtags": ["santaana", "downtownsantaana", "ocfoodie", "supportlocal", "panaderia"]
+    "caption": "5 am at the bakery looks like this.\n\ntrays loaded, coffee on, the front door's unlocked. 116 w macarthur blvd.\n\ncome see what's out today.",
+    "hashtags": ["santaana", "downtownsantaana", "santaanafood", "ocfoodie", "BestFoodOC", "panaderia", "mexicanbakery", "millbakery"],
+    "tag_accounts": ["@visitsantaana"],
+    "location": "Mill Bakery"
   }
 ]

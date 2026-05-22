@@ -40,35 +40,55 @@ COLORS = {
 
 SIZE = (1080, 1350)  # IG 4:5 portrait
 
-# -------- Font discovery (uses macOS system fonts) --------
+# -------- Font discovery --------
+# Brand fonts are bundled in skill/fonts/. We fall back to system fonts if any
+# of them go missing so the generator still runs.
+SKILL_DIR = Path(__file__).resolve().parent
+FONTS_DIR = SKILL_DIR / "fonts"
+
+
 def _first_existing(*paths: str) -> str | None:
     for p in paths:
-        if Path(p).exists():
-            return p
+        if p and Path(p).exists():
+            return str(p)
     return None
 
+
 FONT_SERIF = _first_existing(
+    FONTS_DIR / "BreeSerif-Regular.ttf",
     "/System/Library/Fonts/Supplemental/Georgia Bold.ttf",
     "/Library/Fonts/Georgia Bold.ttf",
     "/System/Library/Fonts/Supplemental/Georgia.ttf",
     "/System/Library/Fonts/Times.ttc",
 )
 FONT_SANS = _first_existing(
+    FONTS_DIR / "WorkSans-Regular.ttf",
     "/System/Library/Fonts/Helvetica.ttc",
     "/System/Library/Fonts/Supplemental/Arial.ttf",
 )
+FONT_SANS_BOLD = _first_existing(
+    FONTS_DIR / "WorkSans-Bold.ttf",
+    FONT_SANS,
+)
 FONT_MONO = _first_existing(
+    FONTS_DIR / "DMMono-Medium.ttf",
+    FONTS_DIR / "DMMono-Regular.ttf",
     "/System/Library/Fonts/Monaco.ttf",
     "/System/Library/Fonts/Menlo.ttc",
     "/System/Library/Fonts/Supplemental/Courier New Bold.ttf",
 )
 
 if not (FONT_SERIF and FONT_SANS and FONT_MONO):
-    raise SystemExit("Could not find required system fonts. Install Georgia and Helvetica.")
+    raise SystemExit("Could not find required fonts.")
 
 
 def _font(family: str, size: int) -> ImageFont.FreeTypeFont:
-    path = {"serif": FONT_SERIF, "sans": FONT_SANS, "mono": FONT_MONO}[family]
+    path = {
+        "serif": FONT_SERIF,
+        "sans": FONT_SANS,
+        "sans_bold": FONT_SANS_BOLD,
+        "mono": FONT_MONO,
+    }[family]
     return ImageFont.truetype(path, size)
 
 
@@ -223,7 +243,8 @@ def paste_brand_stamp(
     mark_y = (stamp_h - mark.size[1]) // 2
     stamp.paste(mark, (pad_h, mark_y), mark)
 
-    # Wordmark — use a small stroke to emulate the chunky Cooper-like feel
+    # Wordmark — use Bree Serif at its natural weight (no stroke, no faux-bold)
+    # so the stamp reads as a clean lockup, not a clunky shouty label
     text_color = (141, 36, 31)  # red deep
     ascent, descent = text_font.getmetrics()
     text_y = (stamp_h - (ascent + descent)) // 2 - 2
@@ -232,8 +253,6 @@ def paste_brand_stamp(
         text,
         font=text_font,
         fill=text_color,
-        stroke_width=2,
-        stroke_fill=text_color,
     )
 
     if position == "top-right":

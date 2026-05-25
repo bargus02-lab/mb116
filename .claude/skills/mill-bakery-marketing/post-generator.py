@@ -143,6 +143,50 @@ def _recolor_mark(target_rgb: tuple[int, int, int]) -> Image.Image:
     return Image.merge("RGBA", (*color.split(), alpha))
 
 
+def paste_brand_icon(
+    canvas: Image.Image,
+    *,
+    position: str | tuple[int, int] = "top-right",
+    mode: str = "on_light",
+    scale: float = 0.11,
+) -> None:
+    """
+    Paste just the windmill icon (no pill, no wordmark) in a corner.
+
+    modes:
+      - "on_light"  red+gold original windmill   (use on cream backgrounds)
+      - "on_dark"   cream-recolored windmill     (use on photo / dark backgrounds)
+      - "on_red"    gold-recolored windmill      (use on the red hours-card bg)
+    """
+    if not MARK_PATH.exists():
+        return
+
+    if mode == "on_dark":
+        mark = _recolor_mark((248, 242, 230))  # cream
+    elif mode == "on_red":
+        mark = _recolor_mark((244, 211, 109))  # gold soft
+    else:  # on_light
+        mark = Image.open(MARK_PATH).convert("RGBA")  # original red + gold
+
+    target_w = int(SIZE[0] * scale)
+    ratio = target_w / mark.size[0]
+    mark = mark.resize((target_w, int(mark.size[1] * ratio)), Image.LANCZOS)
+
+    margin = 56
+    if position == "top-right":
+        dest = (SIZE[0] - mark.size[0] - margin, margin)
+    elif position == "top-left":
+        dest = (margin, margin)
+    elif position == "bottom-right":
+        dest = (SIZE[0] - mark.size[0] - margin, SIZE[1] - mark.size[1] - margin)
+    elif position == "bottom-left":
+        dest = (margin, SIZE[1] - mark.size[1] - margin)
+    else:
+        dest = position  # raw tuple
+
+    canvas.alpha_composite(mark, dest=dest)
+
+
 def paste_brand_stamp(
     canvas: Image.Image,
     *,
@@ -306,7 +350,7 @@ def render_menu_spotlight(post: dict, out: Path) -> None:
     draw.text((90, SIZE[1] - 80), "DAILY 5 AM – 1 PM  ·  116 W MACARTHUR  ·  @MILLBAKERY.OC",
               font=footer_font, fill=COLORS["muted"])
 
-    paste_brand_stamp(canvas, position="top-right", variant="outlined_pill")
+    paste_brand_icon(canvas, position="top-right", mode="on_light")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -317,16 +361,18 @@ def render_hours_card(post: dict, out: Path) -> None:
     canvas = Image.new("RGBA", SIZE, bg + (255,))
     draw = ImageDraw.Draw(canvas)
 
-    # Big number / phrase — auto-fit to canvas width
+    # Big number / phrase — auto-fit to canvas width.
+    # Use textlength (advance width) so the autofit accounts for the rendered
+    # stroke, not just the bare bbox.
     headline = post["headline"].upper()
     max_text_width = SIZE[0] - 160  # 80px margin each side
     size = 360
-    while size > 80:
+    while size > 70:
         h_font = _font("serif", size)
-        bbox = draw.textbbox((0, 0), headline, font=h_font)
-        if (bbox[2] - bbox[0]) <= max_text_width:
+        if draw.textlength(headline, font=h_font) + 12 <= max_text_width:
             break
         size -= 12
+    bbox = draw.textbbox((0, 0), headline, font=h_font, stroke_width=3)
     text_w = bbox[2] - bbox[0]
     text_h = bbox[3] - bbox[1]
     x = (SIZE[0] - text_w) / 2
@@ -340,7 +386,7 @@ def render_hours_card(post: dict, out: Path) -> None:
         sub_w = draw.textlength(sub, font=sub_font)
         draw.text(((SIZE[0] - sub_w) / 2, y + text_h + 60), sub, font=sub_font, fill=fg)
 
-    paste_brand_stamp(canvas, position="top-right", variant="icon_only")
+    paste_brand_icon(canvas, position="top-right", mode="on_red")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -370,7 +416,7 @@ def render_personality_quote(post: dict, out: Path) -> None:
         draw.text((90, end_y + 110), post["attribution"].upper(),
                   font=attr_font, fill=COLORS["muted"])
 
-    paste_brand_stamp(canvas, position="bottom-right", variant="outlined_pill")
+    paste_brand_icon(canvas, position="bottom-right", mode="on_light")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -483,7 +529,7 @@ def render_photo_post(post: dict, out: Path) -> None:
         h_font, COLORS["cream_off"], line_spacing=0.98, stroke_width=2,
     )
 
-    paste_brand_stamp(canvas, position="top-right", variant="pill")
+    paste_brand_icon(canvas, position="top-right", mode="on_dark")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -538,7 +584,7 @@ def render_menu_photo(post: dict, out: Path) -> None:
     draw.text((90, SIZE[1] - 80), "DAILY 5 AM – 1 PM  ·  116 W MACARTHUR  ·  @MILLBAKERY.OC",
               font=footer_font, fill=(255, 247, 239, 180))
 
-    paste_corner_mark(canvas, scale=0.10)
+    paste_brand_icon(canvas, position="top-right", mode="on_dark")
     canvas.save(out, "PNG", optimize=True)
 
 
@@ -583,7 +629,7 @@ def render_process_typographic(post: dict, out: Path) -> None:
     foot_w = draw.textlength(foot, font=foot_font)
     draw.text(((SIZE[0] - foot_w) / 2, SIZE[1] - 100), foot, font=foot_font, fill=COLORS["muted"])
 
-    paste_brand_stamp(canvas, position="top-right", variant="outlined_pill")
+    paste_brand_icon(canvas, position="top-right", mode="on_light")
     canvas.save(out, "PNG", optimize=True)
 
 

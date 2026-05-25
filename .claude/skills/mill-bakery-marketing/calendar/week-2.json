@@ -1,0 +1,82 @@
+[
+  {
+    "template": "hours",
+    "headline": "Off MacArthur",
+    "subtitle": "116 W MacArthur Blvd · Daily 5 – 1",
+    "bg": "red",
+    "slug": "off-macarthur",
+    "caption": "First stop off the freeway, before MacArthur curves. White door, windmill sign — you can't miss it.\n\nPan dulce in the case by 5. Burritos hot by 6. Coffee always on.\n\n116 W MacArthur Blvd · Santa Ana ☀️",
+    "hashtags": ["santaana", "downtownsantaana", "santaanafood", "ocfoodie", "BestFoodOC", "panaderia", "mexicanbakery", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "menu_photo",
+    "photo": "burrito-ham-eggs.jpg",
+    "eyebrow": "From the menu",
+    "headline": "Ham & Eggs",
+    "description": "Ham, eggs, pinto beans, and jack cheese. The morning regular.",
+    "price": "$10.50",
+    "slug": "ham-eggs-burrito",
+    "caption": "Ham, eggs, pinto beans, jack cheese. The #3 burrito on the menu — quiet, dependable, always there.\n\n$10.50. Foil-wrapped, ready to go.\n\nOrder it by number at the counter.",
+    "hashtags": ["breakfastburrito", "hamandeggs", "mexicanbreakfast", "santaanafood", "BestFoodOC", "ocfoodie", "santaana", "millbakery"],
+    "tag_accounts": ["@bestfoodoc"],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "personality",
+    "headline": "Same windmill. Since day one.",
+    "attribution": "Mill Bakery · 116 W MacArthur",
+    "slug": "same-windmill",
+    "caption": "We've changed the paint, swapped the paper bags, broken in three espresso machines. The windmill stays. The pan dulce too.\n\n116 W MacArthur Blvd · Open daily 5 AM",
+    "hashtags": ["santaana", "downtownsantaana", "santaanafood", "ocfoodie", "BestFoodOC", "panaderia", "mexicanbakery", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "photo",
+    "photo": "pastry-case.jpg",
+    "eyebrow": "From the showcase",
+    "headline": "Trays start full.",
+    "slug": "trays-start-full",
+    "caption": "By 9, the conchas are usually gone. By 10, most of the pan dulce too.\n\nSet an alarm worth setting.",
+    "hashtags": ["pandulce", "conchas", "panaderia", "mexicanbakery", "panaderiaartesanal", "santaanafood", "BestFoodOC", "santaana", "millbakery"],
+    "tag_accounts": ["@bestfoodoc"],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "menu_photo",
+    "photo": "juice-orange.jpg",
+    "eyebrow": "Fresh juices",
+    "headline": "Orange Juice",
+    "description": "Cold-pressed, served fresh. Pairs well with a burrito.",
+    "price": "$7.50",
+    "slug": "orange-juice",
+    "caption": "Fresh-pressed orange juice — the cold counter to a hot burrito.\n\n$7.50. Daily. Always cold.\n\nPair it with the #4 if you want a real morning.",
+    "hashtags": ["freshjuice", "orangejuice", "santaanafood", "BestFoodOC", "ocfoodie", "santaana", "mexicanbreakfast", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "process",
+    "eyebrow": "Behind the counter",
+    "headline": "Dough at 4. Doors at 5.",
+    "footer": "Mill Bakery · Daily",
+    "slug": "dough-at-4",
+    "caption": "Bakers in by 4 AM. Trays ready by 5. By the time you order, the conchas have been sitting maybe 30 minutes.\n\nThat's the whole point.",
+    "hashtags": ["panaderia", "freshbaked", "mexicanbakery", "pandulce", "santaanafood", "BestFoodOC", "santaana", "millbakery"],
+    "tag_accounts": [],
+    "location": "Mill Bakery"
+  },
+  {
+    "template": "photo",
+    "photo": "breakfast-burrito.jpg",
+    "eyebrow": "Fresh today",
+    "headline": "Made for the rush.",
+    "slug": "made-for-the-rush",
+    "caption": "Wrapped warm. Easy to grab. Hot salsa on the side.\n\nThe morning go-to for everyone running late — and the regulars who plan around it.",
+    "hashtags": ["breakfastburrito", "santaanafood", "BestFoodOC", "ocfoodie", "mexicanbreakfast", "santaana", "panaderia", "millbakery"],
+    "tag_accounts": ["@bestfoodoc"],
+    "location": "Mill Bakery"
+  }
+]

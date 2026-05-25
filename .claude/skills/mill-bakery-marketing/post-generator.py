@@ -601,25 +601,27 @@ def render_process_typographic(post: dict, out: Path) -> None:
     eye_w = draw.textlength(eye_text, font=eye_font)
     draw.text(((SIZE[0] - eye_w) / 2, 160), eye_text, font=eye_font, fill=COLORS["red_deep"])
 
-    # Big stacked headline (one word per line) — auto-fit longest word to canvas
-    words = post["headline"].split(" ")
-    max_text_width = SIZE[0] - 200
-    size = 260
-    while size > 80:
-        h_font = _font("serif", size)
-        longest = max((draw.textlength(w.upper(), font=h_font) for w in words), default=0)
-        if longest <= max_text_width:
-            break
-        size -= 12
-    line_h = int((h_font.getmetrics()[0] + h_font.getmetrics()[1]) * 0.95)
-    total_h = line_h * len(words)
-    y0 = (SIZE[1] - total_h) / 2
-    for i, word in enumerate(words):
-        word_up = word.upper()
-        w = draw.textlength(word_up, font=h_font)
-        x = (SIZE[0] - w) / 2
-        draw.text((x, y0 + i * line_h), word_up, font=h_font, fill=COLORS["red"],
-                  stroke_width=2, stroke_fill=COLORS["red"])
+    # Big serif headline — natural wrap with autofit to BOTH width and height
+    # so 2-word ("STILL WARM") and 6-word ("DOUGH AT 4. DOORS AT 5.") headlines
+    # both sit comfortably inside the canvas.
+    headline = post["headline"].upper()
+    box_left, box_right = 100, SIZE[0] - 100
+    box_top, box_bottom = 280, SIZE[1] - 200
+    box_w = box_right - box_left
+    box_h = box_bottom - box_top
+    h_font = _autofit_serif_to_box(
+        draw, headline, box_w, box_h,
+        line_spacing=0.95, start=260, min_size=80, step=8,
+    )
+    asc, desc = h_font.getmetrics()
+    line_h = int((asc + desc) * 0.95)
+    lines_count = _wrap_lines_count(draw, headline, h_font, box_w)
+    total_h = line_h * lines_count
+    y_start = int(box_top + (box_h - total_h) / 2)
+    draw_text_wrapped(
+        draw, headline, (box_left, y_start, box_right, box_bottom),
+        h_font, COLORS["red"], line_spacing=0.95, align="center", stroke_width=2,
+    )
 
     # Bottom rule
     draw.rectangle([(90, SIZE[1] - 132), (990, SIZE[1] - 130)], fill=COLORS["gold"])

@@ -6,16 +6,16 @@ Renders 1080x1350 Instagram-ready PNGs from a list of post definitions.
 Reads brand assets from this repo. Uses system fonts (no font installation needed).
 
 Usage:
-    python3 post-generator.py week-1.json output/week-1/
+    python3 post-generator.py posts.json output/posts/
 
 Run from the skill directory:
     cd .claude/skills/mill-bakery-marketing
-    python3 post-generator.py calendar/week-1.json output/week-1/
+    python3 post-generator.py calendar/posts.json output/posts/
 
 Or call from the repo root:
     python3 .claude/skills/mill-bakery-marketing/post-generator.py \
-        .claude/skills/mill-bakery-marketing/calendar/week-1.json \
-        .claude/skills/mill-bakery-marketing/output/week-1/
+        .claude/skills/mill-bakery-marketing/calendar/posts.json \
+        .claude/skills/mill-bakery-marketing/output/posts/
 """
 
 from __future__ import annotations
@@ -791,7 +791,7 @@ footer {{
 <body>
 <header>
   <p class="crumb">Mill Bakery · Marketing · {week_label}</p>
-  <h1>{week_label} — {post_count} Posts</h1>
+  <h1>{week_label} — {post_count} total</h1>
   <p class="lede">{lede}</p>
 </header>
 <div class="view-toggle">
@@ -906,8 +906,12 @@ def main(argv: list[str]) -> int:
         print(f"wrote {path}")
     cap_path = write_captions(posts, output_dir)
     print(f"wrote {cap_path}")
-    week_label = "Week " + (calendar_path.stem.replace("week-", "").strip() or "1")
-    preview_path = write_preview(posts, output_dir, week_label.title())
+    stem = calendar_path.stem
+    if stem.lower().startswith("week-"):
+        label = "Week " + (stem[len("week-"):].strip() or "1")
+    else:
+        label = stem.replace("-", " ").replace("_", " ").title()
+    preview_path = write_preview(posts, output_dir, label)
     print(f"wrote {preview_path}")
     return 0
 

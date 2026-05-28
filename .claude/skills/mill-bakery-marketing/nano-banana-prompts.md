@@ -57,19 +57,19 @@ Warm natural morning light, slight film grain, cream and dark red and gold color
 These four prompts replace typography posts in the current calendar with photo
 backgrounds. Save each as the filename listed, then ask Claude to swap.
 
-### conchas-warm.jpg — for Week 1 Post 05 "Still warm"
+### conchas-warm2.jpeg — Post 05 "Still warm" — DONE (now live)
 
 > Close-up macro photograph of freshly baked conchas with red, yellow, and white colored sugar topping, faint steam rising, on a brown paper bakery liner. Golden warm morning light coming from the left. Very shallow depth of field. Photorealistic, vertical 1080×1350 aspect. Warm cream and dark red and gold color palette, neighborhood Mexican panadería atmosphere in Southern California. No people, no text, no logos visible.
 
-### storefront-dawn.jpg — for Week 2 Post 01 "Off MacArthur"
+### storefront-dawn.jpg — for Post 08 "Off MacArthur"
 
 > Exterior of a small Mexican bakery on a quiet Santa Ana street at 5:30 AM. Terra-cotta and cream colored building, warm interior light glowing through the front window, sidewalk visible, no cars, no people. Peaceful pre-dawn atmosphere with hints of orange sky. Photorealistic, vertical 1080×1350 aspect. Warm cream and dark red and gold color palette. No text, no logos visible on the building.
 
-### bakery-interior.jpg — for Week 2 Post 03 "Same windmill. Since day one."
+### bakery-interior.jpg — for Post 10 "Same windmill. Since day one."
 
 > Interior of an established old-school Mexican panadería at dawn. Wooden counters worn smooth from years of use, glass pastry case full of pan dulce, vintage framed photos on the wall. Warm morning light through a side window. Timeless, established feeling. Photorealistic, vertical 1080×1350 aspect. Warm cream and dark red and gold color palette, Southern California neighborhood bakery atmosphere. No people, no text, no logos visible.
 
-### baker-dough.jpg — for Week 2 Post 06 "Dough at 4. Doors at 5."
+### baker-dough.jpg — for Post 13 "Dough at 4. Doors at 5."
 
 > Hands of a baker placing a tray of unbaked conchas on a wooden counter at 4 AM, only hands and tray visible — no face. Golden warm light from a single overhead lamp, dark surrounding the lit area. Intimate atmospheric pre-dawn shot of bakery preparation. Photorealistic, vertical 1080×1350 aspect. Warm cream and dark red and gold color palette. No face shown, no text, no logos visible.
 

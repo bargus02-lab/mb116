@@ -1,6 +1,7 @@
 [
   {
     "template": "hours",
+    "posted": true,
     "headline": "Open 5 AM",
     "subtitle": "Daily · 116 W MacArthur Blvd · Santa Ana",
     "bg": "red",
@@ -21,6 +22,7 @@
   },
   {
     "template": "menu_photo",
+    "posted": true,
     "photo": "burrito-chorizo.jpg",
     "eyebrow": "Fresh today",
     "headline": "Chorizo Burrito",
@@ -45,6 +47,7 @@
   },
   {
     "template": "personality",
+    "posted": true,
     "headline": "If you're up before sunrise, so are we.",
     "attribution": "Mill Bakery · Open daily 5 am",
     "slug": "up-before-sunrise",

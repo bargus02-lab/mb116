@@ -781,6 +781,9 @@ body.ig-grid-view .post-media {{ aspect-ratio:1/1; }}
 body.ig-grid-view .post-meta {{ display:none; }}
 body.ig-grid-view .post-num {{ display:none; }}
 body.ig-grid-view .post:hover {{ transform:none; box-shadow:none; }}
+/* Already-posted items: hidden in cards + feed (working queue), shown in IG grid (live profile) */
+.post.is-posted {{ display:none; }}
+body.ig-grid-view .post.is-posted {{ display:block; }}
 footer {{
   max-width:1280px; margin:3rem auto 0; padding:0 1rem; text-align:center;
   font-family:ui-monospace,"DM Mono",Menlo,monospace;
@@ -859,7 +862,8 @@ def _build_card(post: dict, index: int) -> str:
         accts = ", ".join(post["tag_accounts"])
         tag_rows.append(f'<p class="post-tag-row"><strong>Tag accounts:</strong> {_html_escape(accts)}</p>')
 
-    return f"""<article class="post">
+    posted_class = " is-posted" if post.get("posted") else ""
+    return f"""<article class="post{posted_class}">
   <div class="post-media">
     <span class="post-num">{index:02d}</span>
     <img src="{filename}" alt="{title}">

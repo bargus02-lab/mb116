@@ -45,10 +45,10 @@
     "location": "Mill Bakery"
   },
   {
-    "template": "process",
+    "template": "photo",
+    "photo": "conchas-warm2.jpeg",
     "eyebrow": "Freshly baked this morning",
     "headline": "Still warm",
-    "footer": "Open 5 AM · Daily",
     "slug": "still-warm",
     "caption": "If you come in by 7, they're still warm.\n\nThe whole tray, basically. Conchas, pan dulce, the regulars.\n\nSet the alarm — it's worth it.",
     "hashtags": ["pandulce", "mexicanbakery", "panaderia", "santaanafood", "BestFoodOC", "santaana", "freshbaked", "millbakery"],

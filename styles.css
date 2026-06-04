@@ -1480,8 +1480,32 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Only one category card shows at a time, so let it span the full width
+     and flow its items into two roomy columns (desktop menu spacing). */
   .menu-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .menu-card {
+    padding: clamp(1.8rem, 3vw, 2.6rem);
+  }
+
+  .menu-list {
+    display: block;
+    columns: 2;
+    column-gap: 2.75rem;
+    margin-top: 1.25rem;
+  }
+
+  .menu-list li {
+    break-inside: avoid;
+    padding: 0.7rem 0;
+    border-top: 1px solid rgba(116, 88, 76, 0.12);
+  }
+
+  .menu-list li:first-child {
+    padding-top: 0.7rem;
+    border-top: 1px solid rgba(116, 88, 76, 0.12);
   }
 
   .image-grid {
@@ -1518,8 +1542,13 @@ h3 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
+  /* Keep the active menu card full-width; widen the gap between item columns. */
   .menu-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .menu-list {
+    column-gap: 3.25rem;
   }
 }
 
